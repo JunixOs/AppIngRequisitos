@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Index</title>
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'index.css' %}">
+    </head>
+    <body>
+        <header>
+            <h1>Mi Pagina</h1>
+        </header>
+        <nav>
+            <a href="{% url 'login' %}">Login</a>
+        </nav>
+        <section class="debt-section"></section>
+        <section class="income-section"></section>
+        <section class="user-section"></section>
+        <section class="last-operations"></section>
+        <section class="expenses-section"></section>
+        <section class="loans-section"></section>
+    </body>
+</html>
