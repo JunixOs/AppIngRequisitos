@@ -2,10 +2,12 @@
 <html>
     <head>
         <title>Login</title>
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'login.css' %}">
     </head>
     <body>
         <header>
-            <h1></h1>
+            <h1>Iniciar Sesion</h1>
         </header>
         <form action="" method="post">
             <input type="email" name="EMAIL" id=""><label for="EMAIL">correo electronico</label>

@@ -1,21 +1,106 @@
 body{
-    height: 100%;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
     width: 100vw;
     display: grid;
-    grid-template-rows: 5vh 5vh repeat(3 , 30vh);
-    grid-template-columns: 20vw 60vw 20vw;
-    row-gap: 1%;
+    grid-template-rows: 5vh 5vh repeat(3 , 30vh); /* 5 filas */
+    grid-template-columns: 20vw 60vw 20vw; /* 3 columnas */
+    row-gap: 8px;
+    column-gap: 8px;
 }
 body header{
     grid-area: 1 / 1 / 2 / 4;
-    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    h1{
+        text-align: center;
+        font-family: 'Times New Roman', Times, serif;
+        size: 20px;
+        font-weight: 600;
+        font-style: oblique;
+    }
 }
 
 body nav{
     grid-area: 2 / 1 / 3 / 4;
-    background-color: salmon;
+    
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-top: 2pt double black;
+    border-bottom: 2pt double black;
+    a{
+        background-color: bisque;
+        text-decoration-line: none;
+        padding: 5pt;
+        border-radius: 5px;
+        color: black;
+        transition: 300ms ease-in-out;
+    }
+    a:hover{
+        background-color: #fff;
+        scale: 1.05;
+    }
+}
+body > section{
+    border-radius: 15px;
 }
 
 body .debt-section{
-    background-color: #fff;
+    grid-area: 3 / 1 / 4 / 2;
+    background-color: red;
+}
+
+body .income-section{
+    grid-area: 4 / 1 / 6 / 2;
+    background-color: blueviolet;
+}
+
+body .user-section{
+    grid-area: 3 / 2 / 5 / 3;
+    background-color: chartreuse;
+
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    column-gap: 5%;
+}
+
+    .user-section .user-profile-image{
+        aspect-ratio: 16/9;
+        width: 45%;
+        height: 100%;
+        border-radius: 50%;
+    }
+    .user-section .user-info{
+        width: 100%;
+        height: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        row-gap: 5%;
+    }
+    .user-info .user-id{
+        width: calc(100%/3);
+    }
+    .user-info .user-balance{
+        width: calc(100%/3);
+    }
+    
+
+body .last-operations{
+    grid-area: 5 / 2 / 6 / 3;
+    background-color: aqua;
+}
+body .expenses-section{
+    grid-area: 3 / 3 / 4 / 4;
+    background-color: seagreen;
+}
+body .loans-section{
+    grid-area: 4 / 3 / 6 / 4;
+    background-color: aquamarine;
 }

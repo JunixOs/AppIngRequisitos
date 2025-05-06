@@ -7,16 +7,26 @@
     </head>
     <body>
         <header>
-            <h1>Mi Pagina</h1>
+            <h1>FinGest</h1>
         </header>
         <nav>
             <a href="{% url 'login' %}">Login</a>
+            <a href="">Educacion Financiera</a>
+            <a href="">Graficos</a>
         </nav>
-        <section class="debt-section"></section>
-        <section class="income-section"></section>
-        <section class="user-section"></section>
-        <section class="last-operations"></section>
-        <section class="expenses-section"></section>
-        <section class="loans-section"></section>
+
+        <section class="debt-section">Deuda</section>
+        <section class="income-section">Ingresos</section>
+        <section class="user-section">
+            <img class="user-profile-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuLoQeAj_iySdBLdYhRQs3hXlykWrHjA0xSA&s" alt="">
+            <div class="user-info">
+                <p class="user-name">Switch</p>
+                <p class="user-id">Id:</p>
+                <p class="user-balance">Saldo:</p>
+            </div>
+        </section>
+        <section class="last-operations">Ultimos movimientos</section>
+        <section class="expenses-section">Egresos</section>
+        <section class="loans-section">Prestamo</section>
     </body>
 </html>
