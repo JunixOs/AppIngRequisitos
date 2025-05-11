@@ -1,0 +1,208 @@
+*{
+    color-scheme: dark light;
+}
+body{
+    margin: 5px;
+    height: calc(100vh - 10px);
+    width: calc(100vw - 10px);
+
+    background-image: url("https://preview.redd.it/yxuve5xdpmq91.jpg?auto=webp&s=2e97f02b191e08fd8f03910846170e9b99801a0f");
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+body .form-card{
+    width: 60%;
+    height: 80%;
+    background-color: white;
+
+    border: 2pt solid white;
+    border-radius: 2px;
+
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr;
+
+    box-shadow: 0px 0px 25px 10px black;
+}
+    .form-card .left-section{
+        grid-area: 1 / 1 / 2 / 2;
+        background-image: url("https://i.scdn.co/image/ab6761610000e5eb859cde47ecafd86c49ebf127");
+        background-repeat: no-repeat;
+        background-size: cover;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+        .left-section .information-section{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            row-gap: 5%;
+            width: 100%;
+            height: 80%;
+            margin: 15% 10% 15% 10%;
+        }
+            .information-section .title-app{
+                text-align: center;
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: clamp(1.5rem , 4vh , 5rem);
+                h1{
+                    word-break: keep-all;
+                    margin: 0;
+                }
+            }
+            .information-section .info-text{
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 12px;
+            }
+            .information-section .social-networks{
+                width: 100%;
+                height: 10%;
+
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-around;
+                button{
+                    appearance: none;
+                    width: 40%;
+                    height: 90%;
+                    border-radius: 25px;
+                    border: 0;
+                    position: relative;
+                }
+                .facebook-button{
+                    background-color: #3b5998;
+                }
+                .whatsapp-button{
+                    background-color: #25D366;
+                }
+                .whatsapp-button::after{
+                    content: "";
+                    width: 40%;
+                    height: 80%;
+                    position: absolute;
+                    background-image: url("https://logodownload.org/wp-content/uploads/2015/04/whatsapp-logo-png.png");
+                    background-repeat: no-repeat;
+                    background-size: contain;
+
+                    top: 50%;
+                    left: 50%;
+                    translate: -50% -50%;
+
+                }
+            }
+
+    .form-card .right-section{
+        grid-area: 1 / 2 / 2 / 3;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .right-section .login-section{
+            width: 100%;
+            height: 80%;
+            margin: 15% 10% 15% 10%;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+            .login-section hgroup{
+                height: 10%;
+                text-align: left;
+                align-content: center;
+                h1{
+                    margin: 0;
+                    font-size: 25px;
+                    font-family: Arial, Helvetica, sans-serif;
+                    color: black;
+                }
+            }
+            .login-section form{
+                height: 70%;
+                width: 100%;
+
+                display: flex;
+                flex-direction: column;
+                align-self: center;
+
+                row-gap: 5%;
+            }
+                form .user-information{
+                    width: 95%;
+                    height: 60%;
+                    align-self: center;
+
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
+
+                    row-gap: 7%;
+                }
+                    .user-information .input-username,
+                    .user-information .input-email,
+                    .user-information .input-password{
+                        appearance: none;
+                        border: 0;
+
+                        height: 17%;
+                        width: 100%;
+                        background-color: white;
+
+                        border-bottom: 3pt solid rgb(73, 154, 255);
+                        margin-bottom: 8px;
+
+                        position: relative;
+                    }
+                    .user-information .input-username:focus,
+                    .user-information .input-email:focus,
+                    .user-information .input-password:focus{
+                        appearance: none;
+                        box-shadow: inset 0px 0px 2px aqua;
+                        border: 0;
+                    }
+                    .user-information .input-username::placeholder,
+                    .user-information .input-email::placeholder,
+                    .user-information .input-password::placeholder{
+                        padding-left: 5%;
+                        font-family: Arial, Helvetica, sans-serif;
+                        color: black;
+                        opacity: 0.6;
+                    }
+                
+                form .hold-session{
+                    font-family: Arial, Helvetica, sans-serif;
+                    font-size: 15px;
+                    align-self: center;
+                    input{
+                        background-color: white;
+                        border: 1pt solid black;
+                    }
+                }
+
+                form .submit-button{
+                    appearance: none;
+                    border: 0;
+
+                    align-self: center;
+                    font-size: 14px;
+
+                    width: 30%;
+                    height: 11%;
+                    border-radius: 25px;
+                    align-self: flex-end;
+                }
+
+                .login-section .extras{
+                    height: 20%;
+                    background-color: aquamarine;
+                }

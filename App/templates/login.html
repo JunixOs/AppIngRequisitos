@@ -6,17 +6,40 @@
         <link rel="stylesheet" type="text/css" href="{% static 'login.css' %}">
     </head>
     <body>
-        <header>
-            <h1>Iniciar Sesion</h1>
-        </header>
-        <form action="" method="post">
-            <input type="email" name="EMAIL" id=""><label for="EMAIL">correo electronico</label>
-            <input type="password" name="PASSWORD" id=""><label for="PASSWORD">contraseña</label>
+        <main class="form-card">
+            <section class="left-section">
+                <div class="information-section">
+                    <hgroup class="title-app"><h1>FinGest</h1></hgroup>
+                    <p class="info-text">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam ad harum atque, eum, odit voluptatem impedit quasi perferendis libero repellat ratione dicta! Nesciunt, sit officiis.
+                    </p>
+                    <div class="social-networks">
+                        <button class="facebook-button">Facebook</button>
+                        <button class="whatsapp-button">Whatsapp</button>
+                    </div>
+                </div>
+            </section>
+            <section class="right-section">
+                <div class="login-section">
+                    <hgroup><h1>Iniciar Sesion</h1></hgroup>
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <div class="user-information">
+                            <input type="text" name="USERNAME" class="input-username" placeholder="Username">
+                            <input type="email" name="EMAIL" class="input-email" placeholder="Email">
+                            <input type="password" name="PASSWORD" class="input-password" placeholder="Password">
+                        </div>
+    
+                        <label class="hold-session" for="HOLDSESSION"><input type="checkbox" name="HOLDSESSION" id="">Mantener la sesion iniciada</label>
+                        <button class="submit-button" type="submit">Ingresar</button>
+                    </form>
+                    <section class="extras">
+                        <a href="">Olvide mi contraseña</a>
+                        <p>No tienes cuenta? <a href=""> Registrate</a></p>
+                    </section>
+                </div>
+            </section>
 
-            <input type="checkbox" name="" id=""><label for="">Mantener la sesion iniciada</label>
-            <button type="submit">Ingresar</button>
-        </form>
-        <a href="">Olvide mi contraseña</a>
-        <p>No tienes cuenta? <a href=""> Registrate</a></p>
+        </main>
     </body>
 </html>

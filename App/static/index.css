@@ -1,13 +1,17 @@
+*{
+    color-scheme: dark light;
+}
 body{
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    width: 100vw;
+    margin: 5px;
+    height: calc(100vh - 10px);
+    width: calc(100vw - 10px);
     display: grid;
-    grid-template-rows: 5vh 5vh repeat(3 , 30vh); /* 5 filas */
-    grid-template-columns: 20vw 60vw 20vw; /* 3 columnas */
+    grid-template-rows: 1fr 1fr repeat(3 , 3fr); /* 5 filas */
+    grid-template-columns: 1fr 3fr 1fr; /* 3 columnas */
     row-gap: 8px;
     column-gap: 8px;
+    overflow: hidden;
+    background-color: black;
 }
 body header{
     grid-area: 1 / 1 / 2 / 4;
@@ -15,11 +19,17 @@ body header{
     justify-content: center;
     align-items: center;
     h1{
+        width: 90%;
+        height: 70%;
+
         text-align: center;
         font-family: 'Times New Roman', Times, serif;
-        size: 20px;
+        font-size: 35px;
         font-weight: 600;
         font-style: oblique;
+
+        text-align: center;
+        align-content: center;
     }
 }
 
@@ -29,50 +39,90 @@ body nav{
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border-top: 2pt double black;
-    border-bottom: 2pt double black;
+    border-top: 2pt double white;
+    border-bottom: 2pt double white;
     a{
-        background-color: bisque;
+        width: 20%;
+        height: 40%;
         text-decoration-line: none;
         padding: 5pt;
         border-radius: 5px;
-        color: black;
+        color: white;
         transition: 300ms ease-in-out;
+
+        text-align: center;
+        align-content: center;
+
+        position: relative;
+    }
+    a:before{
+        content: "";
+        position: absolute;
+
+        background-color: red;
+
+        width: 0%;
+        height: 10%;
+
+        top: 90%;
+        left: 50%;
+        translate: -50% -50%;
+
+        border-radius: 2px;
+        transition: 200ms ease-in-out;
     }
     a:hover{
-        background-color: #fff;
-        scale: 1.05;
+        scale: 1.1;
+    }
+    a:hover:before{
+        width: 90%;
     }
 }
-body > section{
+body section{
     border-radius: 15px;
+    border: 2pt solid white;
+    transition: 200ms ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+body section:hover{
+    box-shadow: 0px 0px 15px rgb(203, 255, 0),
+                0px 0px 10px rgb(208, 255, 25),
+                0px 0px 7px rgb(213, 255, 49);
 }
 
 body .debt-section{
     grid-area: 3 / 1 / 4 / 2;
-    background-color: red;
+    flex-direction: column;
+
+    background-color: rgb(255, 147, 183);
 }
 
 body .income-section{
     grid-area: 4 / 1 / 6 / 2;
-    background-color: blueviolet;
+    flex-direction: column;
+
+    background-color: rgb(255, 147, 183);
 }
 
 body .user-section{
     grid-area: 3 / 2 / 5 / 3;
-    background-color: chartreuse;
 
     display: flex;
     align-items: center;
     flex-direction: row;
-    column-gap: 5%;
+    column-gap: 2%;
+
+    background-color: rgb(255, 193, 71);
 }
 
     .user-section .user-profile-image{
         aspect-ratio: 16/9;
         width: 45%;
         height: 100%;
-        border-radius: 50%;
+        border-radius: 13px;
+        border-right: 1pt solid black;
     }
     .user-section .user-info{
         width: 100%;
@@ -84,23 +134,70 @@ body .user-section{
         flex-direction: column;
         row-gap: 5%;
     }
+    .user-info .user-name{
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 30px;
+        font-weight: 600;
+        font-style: italic;
+    }
     .user-info .user-id{
-        width: calc(100%/3);
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 20px;
+        font-weight: 400;
     }
     .user-info .user-balance{
-        width: calc(100%/3);
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 20px;
+        font-weight: 400;
     }
-    
+        .user-balance .money{
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 20px;
+            color: gray;
+        }
+    .user-info p{
+        text-align: center;
+        align-content: center;
+        width: 100%;
+        height: calc(100%/3);
+        border: 2pt solid white;
+        border-radius: 20px 0px 0px 20px;
+
+        color: black;
+    }
 
 body .last-operations{
     grid-area: 5 / 2 / 6 / 3;
-    background-color: aqua;
+    flex-direction: column;
+
+    background-color: rgb(71, 198, 255);
 }
 body .expenses-section{
     grid-area: 3 / 3 / 4 / 4;
-    background-color: seagreen;
+    flex-direction: column;
+
+    background-color: rgb(255, 147, 183);
 }
 body .loans-section{
     grid-area: 4 / 3 / 6 / 4;
-    background-color: aquamarine;
+    flex-direction: column;
+
+    background-color: rgb(255, 147, 183);
+}
+
+body section .header-for-section{
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 17px;
+    font-weight: 600;
+    text-align: center;
+    align-content: center;
+    height: 10%;
+    width: 90%;
+    padding-bottom: 2px;
+    border-bottom: 1pt solid black;
+}
+body section .section-elements{
+    height: 90%;
+    width: 95%;
 }
