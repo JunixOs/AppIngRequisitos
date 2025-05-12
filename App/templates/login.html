@@ -25,9 +25,8 @@
                     <form action="" method="post">
                         {% csrf_token %}
                         <div class="user-information">
-                            <input type="text" name="USERNAME" class="input-username" placeholder="Username">
-                            <input type="email" name="EMAIL" class="input-email" placeholder="Email">
-                            <input type="password" name="PASSWORD" class="input-password" placeholder="Password">
+                            <input type="email" name="EMAIL" class="input-email" placeholder="Email" required>
+                            <input type="password" name="PASSWORD" class="input-password" placeholder="Password" required>
                         </div>
     
                         <label class="hold-session" for="HOLDSESSION"><input type="checkbox" name="HOLDSESSION" id="">Mantener la sesion iniciada</label>
@@ -35,7 +34,7 @@
                     </form>
                     <section class="extras">
                         <a href="">Olvide mi contraseña</a>
-                        <p>No tienes cuenta? <a href=""> Registrate</a></p>
+                        <p>¿No tienes cuenta? <a href="{% url 'register' %}">Registrate</a></p>
                     </section>
                 </div>
             </section>

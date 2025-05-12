@@ -26,4 +26,6 @@ urlpatterns = [
     path("" , views.Index , name="index"),
 
     path("/login" , views.Login , name="login"),
+    path("/register" , views.Register , name="register")
+
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

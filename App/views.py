@@ -9,9 +9,17 @@ def Index(request):
 
 def Login(request):
     if(request.method == "POST"):
+        email = request.POST.get("EMAIL")
+        password = request.POST.get("PASSWORD")
+
+        return HttpResponse(f"Formulario recibido\ncorreo:{email}\ncontraseña{password}")
+    return render(request , 'login.html')
+
+def Register(request):
+    if(request.method == "POST"):
         username = request.POST.get("USERNAME")
         email = request.POST.get("EMAIL")
         password = request.POST.get("PASSWORD")
 
-        return HttpResponse(f"Formulario recibido\nnombre de usuario{username}\ncorreo:{email}\ncontraseña{password}")
-    return render(request , 'login.html')
+        return HttpResponse(f"Recibido\n{username}\n{email}\n{password}")
+    return render(request , 'register.html')
