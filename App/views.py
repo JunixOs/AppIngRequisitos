@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
+@login_required(login_url='login')
 def Index(request):
     Data = {
         "message" : "Mensaje enviado desde Django",
@@ -8,12 +10,13 @@ def Index(request):
     return render(request , 'index.html')
 
 def Login(request):
-    if(request.method == "POST"):
+    if request.method == "POST":
         email = request.POST.get("EMAIL")
         password = request.POST.get("PASSWORD")
-
-        return HttpResponse(f"Formulario recibido\ncorreo:{email}\ncontraseña{password}")
-    return render(request , 'login.html')
+        # Aquí deberías validar usuario y contraseña
+        # Por simplicidad asumimos que está OK y redirigimos:
+        return redirect('inicio')  # o 'index' si tienes así la url
+    return render(request, 'login.html')
 
 def Register(request):
     if(request.method == "POST"):
@@ -30,3 +33,6 @@ def Ayuda(request):
 
 def Contacto(request):
     return render(request, 'contacto.html')
+
+def Inicio(request):
+    return render(request, 'inicio.html')

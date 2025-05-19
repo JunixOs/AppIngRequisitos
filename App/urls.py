@@ -23,7 +23,7 @@ from . import views
 
 
 urlpatterns = [
-    path("" , views.Index , name="index"),
+    path("", views.Inicio, name="inicio"),
 
     path("login" , views.Login , name="login"),
     path("register" , views.Register , name="register"),
