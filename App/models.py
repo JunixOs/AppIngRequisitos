@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-class Moneda(models.Model):
+""" class Moneda(models.Model):
     codigo = models.CharField(max_length=5 , unique=True) # PEN , USD , COL , EUR , etc...
     nombre = models.CharField(max_length=50) # Nuevos Soles , Dolares Estadounidenses , Pesos Colombianos , Euros , etc
     simbolo = models.CharField(max_length=5) # S/. , $. , , e
@@ -27,4 +27,4 @@ class Usuario(AbstractUser):
     REQUIRED_FIELDS = ['nombres' , 'apellido_materno' , 'apellido_paterno']
 
     def __str__(self):
-        return f"Nombres: {self.nombres}\nApellido paterno: {self.apellido_paterno}\nApellido materno: {self.apellido_materno}"
+        return f"Nombres: {self.nombres}\nApellido paterno: {self.apellido_paterno}\nApellido materno: {self.apellido_materno}" """
