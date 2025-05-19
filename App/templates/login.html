@@ -1,44 +1,75 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Login</title>
-        {% load static %}
-        <link rel="stylesheet" type="text/css" href="{% static 'login.css' %}">
-    </head>
-    <body>
-        <main class="form-card">
-            <section class="left-section">
-                <div class="information-section">
-                    <hgroup class="title-app"><h1>FinGest</h1></hgroup>
-                    <p class="info-text">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam ad harum atque, eum, odit voluptatem impedit quasi perferendis libero repellat ratione dicta! Nesciunt, sit officiis.
-                    </p>
-                    <div class="social-networks">
-                        <button class="facebook-button">Facebook</button>
-                        <button class="whatsapp-button">Whatsapp</button>
+<head>
+    <title>Login</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'login.css' %}">
+</head>
+<body>
+    <main class="form-card">
+        <section class="left-section">
+            <div class="information-section">
+                <hgroup class="title-app"><h1>FinGest</h1></hgroup>
+                <p class="info-text">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam ad harum atque, eum, odit voluptatem impedit quasi perferendis libero repellat ratione dicta! Nesciunt, sit officiis.
+                </p>
+                <div class="social-networks">
+                    <button class="facebook-button">Facebook</button>
+                    <button class="whatsapp-button">Whatsapp</button>
+                </div>
+            </div>
+        </section>
+        <section class="right-section">
+            <div class="login-section">
+                <hgroup><h1>Iniciar Sesion</h1></hgroup>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="user-information">
+                        <input type="email" name="EMAIL" class="input-email" placeholder="Email" required>
+                        <input type="password" name="PASSWORD" class="input-password" placeholder="Password" required>
                     </div>
-                </div>
-            </section>
-            <section class="right-section">
-                <div class="login-section">
-                    <hgroup><h1>Iniciar Sesion</h1></hgroup>
-                    <form action="" method="post">
-                        {% csrf_token %}
-                        <div class="user-information">
-                            <input type="email" name="EMAIL" class="input-email" placeholder="Email" required>
-                            <input type="password" name="PASSWORD" class="input-password" placeholder="Password" required>
-                        </div>
-    
-                        <label class="hold-session" for="HOLDSESSION"><input type="checkbox" name="HOLDSESSION" id="">Mantener la sesion iniciada</label>
-                        <button class="submit-button" type="submit">Ingresar</button>
-                    </form>
-                    <section class="extras">
-                        <a href="">Olvide mi contraseña</a>
-                        <p>¿No tienes cuenta? <a href="{% url 'register' %}">Registrate</a></p>
-                    </section>
-                </div>
-            </section>
 
-        </main>
-    </body>
+                    <label class="hold-session" for="HOLDSESSION">
+                        <input type="checkbox" name="HOLDSESSION" id="">Mantener la sesion iniciada
+                    </label>
+                    <button class="submit-button" type="submit">Ingresar</button>
+                </form>
+
+                <section class="extras" style="margin-top: 10px; text-align: center;">
+                    <a href="">Olvide mi contraseña</a>
+                    <p>¿No tienes cuenta? <a href="{% url 'register' %}">Registrate</a></p>
+                </section>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div style="display: flex; justify-content: center; gap: 20px; padding: 15px 0;">
+            <a href="{% url 'ayuda' %}" style="
+                padding: 10px 20px;
+                background-color: #007BFF;
+                color: white;
+                text-decoration: none;
+                border-radius: 6px;
+                font-weight: bold;
+                transition: background-color 0.3s ease;
+                display: inline-block;
+            " onmouseover="this.style.backgroundColor='#0056b3'" onmouseout="this.style.backgroundColor='#007BFF'">
+                Ayuda y Asistencia
+            </a>
+            <a href="{% url 'contacto' %}" style="
+                padding: 10px 20px;
+                background-color: #007BFF;
+                color: white;
+                text-decoration: none;
+                border-radius: 6px;
+                font-weight: bold;
+                transition: background-color 0.3s ease;
+                display: inline-block;
+            " onmouseover="this.style.backgroundColor='#0056b3'" onmouseout="this.style.backgroundColor='#007BFF'">
+                Contáctanos
+            </a>
+        </div>
+    </footer>
+</body>
 </html>

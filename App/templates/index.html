@@ -1,47 +1,86 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Index</title>
-        {% load static %}
-        <link rel="stylesheet" type="text/css" href="{% static 'index.css' %}">
-    </head>
-    <body>
-        <header>
-            <h1>FinGest</h1>
-        </header>
-        <nav>
-            <a href="{% url 'login' %}">Login</a>
-            <a href="">Educacion Financiera</a>
-            <a href="">Graficos</a>
-        </nav>
+<head>
+    <title>Index</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'index.css' %}">
+    <style>
+        /* Footer con flex para centrar contenido */
+        footer.footer-buttons {
+            width: 100%;
+            display: flex;
+            justify-content: center; /* Centra horizontalmente */
+            align-items: center;     /* Centra verticalmente si hace falta */
+            padding: 20px 0;
+            background-color: #f5f5f5;
+            box-sizing: border-box;
+            position: fixed; /* Para que quede pegado abajo siempre */
+            bottom: 0;       /* Pegado al fondo */
+            left: 0;
+            z-index: 1000;   /* Para que esté encima de otros elementos */
+        }
+        footer.footer-buttons a {
+            margin: 0 15px;
+            padding: 10px 25px;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            display: inline-block;
+        }
+        footer.footer-buttons a:hover {
+            background-color: #0056b3;
+        }
+        /* Evitar que el contenido quede tapado por el footer */
+        body {
+            padding-bottom: 70px; /* Ajusta según el alto del footer */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>FinGest</h1>
+    </header>
+    <nav>
+        <a href="{% url 'login' %}">Login</a>
+        <a href="">Educacion Financiera</a>
+        <a href="">Graficos</a>
+    </nav>
 
-        <section class="debt-section">
-            <h1 class="header-for-section">Deuda</h1>
-            <div class="section-elements"></div>
-        </section>
-        <section class="income-section">
-            <h1 class="header-for-section">Ingresos</h1>
-            <div class="section-elements"></div>
-        </section>
-        <section class="user-section">
-            <img class="user-profile-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuLoQeAj_iySdBLdYhRQs3hXlykWrHjA0xSA&s" alt="">
-            <div class="user-info">
-                <p class="user-name">Switch</p>
-                <p class="user-id">ID: 123456789</p>
-                <p class="user-balance">Saldo: <span class="money">S/. 1540</span></p>
-            </div>
-        </section>
-        <section class="last-operations">
-            <h1 class="header-for-section">Ultimas Operaciones</h1>
-            <div class="section-elements"></div>
-        </section>
-        <section class="expenses-section">
-            <h1 class="header-for-section">Egresos</h1>
-            <div class="section-elements"></div>
-        </section>
-        <section class="loans-section">
-            <h1 class="header-for-section">Prestamos</h1>
-            <div class="section-elements"></div>
-        </section>
-    </body>
+    <section class="debt-section">
+        <h1 class="header-for-section">Deuda</h1>
+        <div class="section-elements"></div>
+    </section>
+    <section class="income-section">
+        <h1 class="header-for-section">Ingresos</h1>
+        <div class="section-elements"></div>
+    </section>
+    <section class="user-section">
+        <img class="user-profile-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuLoQeAj_iySdBLdYhRQs3hXlykWrHjA0xSA&s" alt="">
+        <div class="user-info">
+            <p class="user-name">Switch</p>
+            <p class="user-id">ID: 123456789</p>
+            <p class="user-balance">Saldo: <span class="money">S/. 1540</span></p>
+        </div>
+    </section>
+    <section class="last-operations">
+        <h1 class="header-for-section">Ultimas Operaciones</h1>
+        <div class="section-elements"></div>
+    </section>
+    <section class="expenses-section">
+        <h1 class="header-for-section">Egresos</h1>
+        <div class="section-elements"></div>
+    </section>
+    <section class="loans-section">
+        <h1 class="header-for-section">Prestamos</h1>
+        <div class="section-elements"></div>
+    </section>
+
+    <footer class="footer-buttons">
+        <a href="{% url 'ayuda' %}">Ayuda y Asistencia</a>
+        <a href="{% url 'contacto' %}">Contáctanos</a>
+    </footer>
+</body>
 </html>

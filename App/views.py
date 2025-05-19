@@ -23,3 +23,10 @@ def Register(request):
 
         return HttpResponse(f"Recibido\n{username}\n{email}\n{password}")
     return render(request , 'register.html')
+
+def Ayuda(request):
+    return render(request, 'ayuda.html')
+
+
+def Contacto(request):
+    return render(request, 'contacto.html')
