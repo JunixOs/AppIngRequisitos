@@ -96,6 +96,8 @@ AppIngRequisitos/
 
 * Ordoñez
 
+* Josué
+
 * Docente Villegas
 
 ---
