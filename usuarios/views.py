@@ -16,7 +16,7 @@ def Login(request):
         # Aquí deberías validar usuario y contraseña
         # Por simplicidad asumimos que está OK y redirigimos:
         return redirect('inicio')  # o 'index' si tienes así la url
-    return render(request, 'login.html')
+    return render(request, 'usuarios/login.html')
 
 def Register(request):
     if(request.method == "POST"):
@@ -25,14 +25,4 @@ def Register(request):
         password = request.POST.get("PASSWORD")
 
         return HttpResponse(f"Recibido\n{username}\n{email}\n{password}")
-    return render(request , 'register.html')
-
-def Ayuda(request):
-    return render(request, 'ayuda.html')
-
-
-def Contacto(request):
-    return render(request, 'contacto.html')
-
-def Inicio(request):
-    return render(request, 'inicio.html')
+    return render(request , 'usuarios/register.html')

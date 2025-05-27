@@ -1,169 +1,11 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Iniciar Sesión - FinGest</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'login.css' %}" />
-    <style>
-        /* Reset básico */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body, html {
-            min-height: 100vh;
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: #333;
-            display: flex;
-            justify-content: center;
-            padding: 20px;
-            overflow-y: auto;
-        }
-
-        .login-container {
-            background: white;
-            width: 380px;
-            max-height: 90vh;
-            border-radius: 12px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .login-header {
-            background-color: #764ba2;
-            padding: 30px 20px;
-            color: #fff;
-            text-align: center;
-            flex-shrink: 0;
-        }
-
-        .login-header h1 {
-            font-weight: 700;
-            font-size: 1.8rem;
-            letter-spacing: 2px;
-        }
-
-        .login-form {
-            padding: 30px 25px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            overflow-y: auto;
-        }
-
-        .login-form label {
-            margin-bottom: 5px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: #555;
-        }
-
-        .login-form input[type="email"],
-        .login-form input[type="password"] {
-            padding: 12px 15px;
-            margin-bottom: 20px;
-            border: 1.8px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .login-form input[type="email"]:focus,
-        .login-form input[type="password"]:focus {
-            border-color: #764ba2;
-            outline: none;
-        }
-
-        .login-form .checkbox-container {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-            font-size: 0.9rem;
-            user-select: none;
-        }
-
-        .login-form .checkbox-container input[type="checkbox"] {
-            margin-right: 8px;
-            width: 16px;
-            height: 16px;
-        }
-
-        .login-form button {
-            background-color: #764ba2;
-            border: none;
-            color: white;
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-size: 1rem;
-            cursor: pointer;
-            font-weight: 700;
-            transition: background-color 0.3s ease;
-        }
-
-        .login-form button:hover {
-            background-color: #5a3481;
-        }
-
-        .login-extra {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 0.9rem;
-            color: #555;
-            flex-shrink: 0;
-        }
-
-        .login-extra a {
-            color: #764ba2;
-            text-decoration: none;
-            font-weight: 600;
-            margin-left: 5px;
-            transition: color 0.3s ease;
-        }
-
-        .login-extra a:hover {
-            color: #5a3481;
-        }
-
-        .login-footer {
-            background-color: #f4f4f4;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            border-top: 1px solid #ddd;
-            flex-shrink: 0;
-        }
-
-        .login-footer a {
-            background-color: #764ba2;
-            color: white;
-            padding: 10px 28px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: background-color 0.3s ease;
-        }
-
-        .login-footer a:hover {
-            background-color: #5a3481;
-        }
-
-        /* Responsive */
-        @media (max-width: 420px) {
-            .login-container {
-                width: 90%;
-                max-height: 95vh;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'usuarios/css/login.css' %}" />
 </head>
 <body>
     <div class="login-container" role="main">
@@ -189,12 +31,12 @@
 
         <div class="login-extra">
             <p><a href="">Olvidé mi contraseña</a></p>
-            <p>¿No tienes cuenta? <a href="{% url 'register' %}">Regístrate</a></p>
+            <p>¿No tienes cuenta? <a href="{% url 'Register Users' %}">Regístrate</a></p>
         </div>
 
         <footer class="login-footer">
-            <a href="{% url 'ayuda' %}">Ayuda y Asistencia</a>
-            <a href="{% url 'contacto' %}">Contáctanos</a>
+            <a href="{% url 'Ayuda' %}">Ayuda y Asistencia</a>
+            <a href="{% url 'Contacto' %}">Contáctanos</a>
         </footer>
     </div>
 </body>

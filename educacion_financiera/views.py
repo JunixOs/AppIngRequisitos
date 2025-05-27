@@ -2,5 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 # Create your views here.
-def index(request):
-    return HttpResponse("Bienvenido a la app del modulo Educacion Financiera")
+def Ayuda(request):
+    return render(request, 'educacion_financiera/ayuda.html')
+
+def Contacto(request):
+    return render(request, 'educacion_financiera/contacto.html')

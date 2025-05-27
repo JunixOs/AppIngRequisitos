@@ -1,19 +1,25 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bienvenido a FinGest</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'core/css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/index.css' %}" />
 </head>
 <body>
-    <head>
-        <h1>Bienvenido a mi pagina en la App Core</h1>
-    </head>
-    <div>
-        pingaxd
-    </div>
-    <a href="{% url 'login_users_module' %}">Login</a>
+    <main class="welcome-container" role="main">
+        <section class="welcome-text">
+            <h1>Bienvenido a FinGest</h1>
+            <p>Gestiona tus finanzas personales de manera fácil, segura y eficiente. Controla tus gastos, ahorros y metas desde una sola plataforma.</p>
+            <div class="btn-group">
+                <a href="{% url 'Login Users' %}" class="btn">Iniciar Sesión</a>
+                <a href="{% url 'Register Users' %}" class="btn">Regístrate</a>
+            </div>
+        </section>
+        <section class="welcome-image" role="img" aria-label="Imagen financiera de bienvenida">
+            <!-- La imagen está en background css, reemplaza la ruta en url() -->
+        </section>
+    </main>
 </body>
 </html>
