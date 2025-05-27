@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bienvenido a FinGest</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'inicio.css' %}" />
+    <style>
+        /* Reset y tipografía */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body, html {
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .welcome-container {
+            background: rgba(0, 0, 0, 0.5);
+            max-width: 900px;
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+            display: flex;
+            flex-wrap: wrap;
+            overflow: hidden;
+        }
+        .welcome-text {
+            flex: 1 1 350px;
+            padding: 40px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .welcome-text h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 900;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
+        }
+        .welcome-text p {
+            font-size: 1.2rem;
+            line-height: 1.5;
+            margin-bottom: 30px;
+            color: #ddd;
+        }
+        .welcome-text .btn-group {
+            display: flex;
+            gap: 20px;
+        }
+        .welcome-text .btn {
+            background-color: #764ba2;
+            padding: 15px 40px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+            user-select: none;
+            text-align: center;
+            flex-grow: 1;
+        }
+        .welcome-text .btn:hover {
+            background-color: #5a3481;
+        }
+        .welcome-image {
+            flex: 1 1 350px;
+            background-image: url("{% static 'images/inicio.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            min-height: 300px;
+        }
+
+        /* Responsive */
+        @media (max-width: 700px) {
+            .welcome-container {
+                flex-direction: column;
+                border-radius: 15px;
+            }
+            .welcome-image {
+                min-height: 200px;
+            }
+            .welcome-text {
+                padding: 30px 20px;
+            }
+            .welcome-text h1 {
+                font-size: 2.2rem;
+            }
+            .welcome-text p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="welcome-container" role="main">
+        <section class="welcome-text">
+            <h1>Bienvenido a FinGest</h1>
+            <p>Gestiona tus finanzas personales de manera fácil, segura y eficiente. Controla tus gastos, ahorros y metas desde una sola plataforma.</p>
+            <div class="btn-group">
+                <a href="{% url 'login' %}" class="btn">Iniciar Sesión</a>
+                <a href="{% url 'register' %}" class="btn">Regístrate</a>
+            </div>
+        </section>
+        <section class="welcome-image" role="img" aria-label="Imagen financiera de bienvenida">
+            <!-- La imagen está en background css, reemplaza la ruta en url() -->
+        </section>
+    </main>
+</body>
+</html>

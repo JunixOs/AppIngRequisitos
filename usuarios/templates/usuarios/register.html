@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Register</title>
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'register.css' %}">
+    </head>
+    <body>
+        <main class="form-card">
+            <section class="left-section">
+                <div class="register-section">
+                    <hgroup><h1>Registrate</h1></hgroup>
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <div class="user-information">
+                            <input type="text" name="USERNAME" class="input-username" placeholder="Username" required>
+                            <input type="email" name="EMAIL" class="input-email" placeholder="Email" required>
+                            <input type="password" name="PASSWORD" class="input-password" placeholder="Password" required>
+                        </div>
+
+                        <button class="submit-button" type="submit">Registrarse</button>
+                    </form>
+                </div>
+            </section>
+            <section class="right-section">
+                <div class="information-section">
+                    <hgroup class="title-app"><h1>FinGest</h1></hgroup>
+                    <p class="info-text">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias facere eligendi optio quaerat aliquam autem minima molestias accusantium voluptates nostrum!
+                    </p>
+                    <div class="social-networks">
+                        <button class="facebook-button">Facebook</button>
+                        <button class="whatsapp-button">Whatsapp</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </body>
+</html>

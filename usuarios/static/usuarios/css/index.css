@@ -1,0 +1,66 @@
+/* Estructura principal centrada con bienvenida e imagen */
+.main-home {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    padding: 20px;
+}
+
+.bienvenida {
+    display: flex;
+    background-color: #2f2f6b;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    max-width: 900px;
+    width: 100%;
+}
+
+.bienvenida .texto {
+    flex: 1;
+    padding: 40px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.bienvenida h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.bienvenida p {
+    font-size: 1.1rem;
+    line-height: 1.5;
+}
+
+.bienvenida .imagen {
+    flex: 1;
+}
+
+.bienvenida img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+    .bienvenida {
+        flex-direction: column;
+    }
+
+    .bienvenida .texto {
+        padding: 20px;
+    }
+
+    .bienvenida img {
+        height: 200px;
+        object-fit: cover;
+    }
+}
