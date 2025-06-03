@@ -1,7 +1,8 @@
 from django.urls import path
 from . import views
 
+""" Urls App CORE """
 urlpatterns = [
-    path('home/', views.Home, name='Pagina de Inicio Primario'),
-    path('' , views.Inicio , name="Pagina de Inicio Secundario"),
+    path("" , views.Inicio , name="index"),
+    path("dashboard/" , views.dashboard , name="dashboard"),
 ]

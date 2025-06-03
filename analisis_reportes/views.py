@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-# Create your views here.
-def index(request):
-    return HttpResponse("Bienvenido a la app del modulo Analisis y reportes")
+""" Url App ANALISIS_REPORTES """
+def reports(request):
+    return render(request, "analisis_reportes/reports.html")

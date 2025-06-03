@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}FinanceEdu{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="min-h-screen flex">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white shadow px-4 py-6 space-y-6 text-sm">
+        <div class="text-xl font-bold flex items-center gap-2">
+            🏆 FinanceEdu
+        </div>
+
+        <div>
+            <p class="text-gray-500 uppercase text-xs mb-2">Visión General</p>
+            <ul class="space-y-2">
+            <li><a href="{% url 'dashboard' %}" class="block hover:text-blue-600">📊 Panel Principal</a></li>
+            <li><a href="{% url 'transactions' %}" class="block hover:text-blue-600">💳 Transacciones</a></li>
+            <li><a href="#" class="block hover:text-blue-600">📈 Presupuestos</a></li> <!-- aún no creado -->
+            <li><a href="{% url 'savings_goals' %}" class="block hover:text-blue-600">📉 Metas de Ahorro</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="text-gray-500 uppercase text-xs mb-2">Aprendizaje</p>
+            <ul class="space-y-2">
+            <li><a href="{% url 'courses' %}" class="block hover:text-blue-600">📘 Cursos</a></li>
+            <li><a href="{% url 'tips' %}" class="block hover:text-blue-600">💡 Consejos Financieros</a></li>
+            <li><a href="{% url 'calculators' %}" class="block hover:text-blue-600">🧮 Calculadoras</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="text-gray-500 uppercase text-xs mb-2">Cuenta</p>
+            <ul class="space-y-2">
+            <li><a href="{% url 'profile' %}" class="block hover:text-blue-600">👤 Perfil</a></li>
+            <li><a href="{% url 'settings' %}" class="block hover:text-blue-600">⚙️ Configuración</a></li>
+            <li><a href="{% url 'reports' %}" class="block hover:text-blue-600">📄 Informes</a></li>
+            </ul>
+        </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-6">
+        {% block content %}{% endblock %}
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+{% extends "core/base_template.html" %}
+{% block title %}Metas de Ahorro | BuilderQuantum{% endblock %}
+
+{% block content %}
+<div class="flex justify-between items-center mb-6">
+  <div>
+    <h2 class="text-2xl font-bold mb-1">Savings Goals</h2>
+    <p class="text-sm text-gray-500">Track and manage your financial targets</p>
+  </div>
+  <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">+ New Savings Goal</button>
+</div>
+
+<!-- Metas -->
+<div class="grid md:grid-cols-3 gap-6 mb-8">
+  {% for goal in goals %}
+    <div class="bg-white p-4 rounded shadow">
+      <h3 class="text-lg font-semibold">{{ goal.0 }}</h3>
+      <p class="text-sm text-gray-500">{{ goal.4 }}</p>
+      <p class="text-xs text-gray-400 mb-1">{{ goal.1 }}</p>
+      <div class="w-full bg-gray-200 h-2 rounded mb-2">
+        <div class="bg-blue-600 h-2 rounded" style="width: {{ goal.2 }}"></div>
+      </div>
+      <p class="text-xs text-gray-400 mb-3">Target Date: {{ goal.3 }}</p>
+      <div class="flex gap-2">
+        <button class="bg-blue-600 text-white px-3 py-1 rounded text-sm">Add Funds</button>
+        <button class="border px-3 py-1 rounded text-sm">Edit</button>
+      </div>
+    </div>
+  {% endfor %}
+
+  <div class="flex items-center justify-center flex-col border-dashed border-2 rounded text-gray-400 h-48 cursor-pointer">
+    <span class="text-2xl">📈</span>
+    <p class="font-semibold">Add New Goal</p>
+    <p class="text-xs text-gray-500">Set a new savings target</p>
+  </div>
+</div>
+
+<!-- Tips -->
+<h3 class="text-lg font-semibold mb-3">Savings Tips</h3>
+<div class="grid md:grid-cols-2 gap-4">
+  {% for tip in tips %}
+    <div class="bg-white p-4 rounded shadow flex items-start gap-4">
+      <div class="text-2xl">{{ tip.0 }}</div>
+      <div>
+        <p class="font-semibold">{{ tip.1 }}</p>
+        <p class="text-sm text-gray-500">{{ tip.2 }}</p>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

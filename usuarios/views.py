@@ -15,7 +15,7 @@ def Login(request):
         password = request.POST.get("PASSWORD")
         # Aquí deberías validar usuario y contraseña
         # Por simplicidad asumimos que está OK y redirigimos:
-        return redirect('inicio')  # o 'index' si tienes así la url
+        return redirect('dashboard')  # o 'index' si tienes así la url
     return render(request, 'usuarios/login.html')
 
 def Register(request):

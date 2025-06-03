@@ -1,7 +1,8 @@
 from django.urls import path
 from . import views
 
+""" Urls App EDUCACION_FINANCIERA """
 urlpatterns = [
-    path('ayuda/', views.Ayuda, name='Ayuda'),
-    path('contacto/' , views.Contacto , name='Contacto')
+    path("calculators/", views.calculators, name="calculators"),
+    path("courses/", views.courses, name="courses"),
 ]

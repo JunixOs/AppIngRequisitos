@@ -1,0 +1,112 @@
+{% extends "core/base_template.html" %}
+{% block title %}Dashboard | BuilderQuantum{% endblock %}
+
+{% block content %}
+<h2 class="text-2xl font-bold mb-1">Dashboard</h2>
+<p class="text-sm text-gray-500 mb-6">Overview of your financial situation</p>
+
+<!-- Tabs -->
+<div class="flex space-x-4 mb-6 text-sm font-medium">
+  <a href="{% url 'dashboard' %}?tab=overview" class="px-4 py-2 rounded {% if tab == 'overview' %}bg-blue-100 text-blue-600{% endif %}">Overview</a>
+  <a href="{% url 'dashboard' %}?tab=analytics" class="px-4 py-2 rounded {% if tab == 'analytics' %}bg-blue-100 text-blue-600{% endif %}">Analytics</a>
+  <a href="{% url 'dashboard' %}?tab=savings" class="px-4 py-2 rounded {% if tab == 'savings' %}bg-blue-100 text-blue-600{% endif %}">Savings Goals</a>
+</div>
+
+<!-- Contenido dinámico -->
+{% if tab == "overview" %}
+  <!-- 💰 Overview -->
+  <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-6">
+    <div class="bg-white p-4 rounded shadow">
+      <p class="text-gray-500 text-sm">Total Balance</p>
+      <p class="text-xl font-semibold">$1490.00</p>
+      <p class="text-xs text-green-500">+5.2% from last month</p>
+    </div>
+    <div class="bg-white p-4 rounded shadow">
+      <p class="text-gray-500 text-sm">Total Income</p>
+      <p class="text-xl font-semibold text-green-600">$2700.00</p>
+      <p class="text-xs text-gray-400">From 1 sources</p>
+    </div>
+    <div class="bg-white p-4 rounded shadow">
+      <p class="text-gray-500 text-sm">Total Expenses</p>
+      <p class="text-xl font-semibold text-red-500">$1210.00</p>
+      <p class="text-xs text-gray-400">44.8% of income</p>
+    </div>
+    <div class="bg-white p-4 rounded shadow">
+      <p class="text-gray-500 text-sm">Savings Progress</p>
+      <p class="text-xl font-semibold text-blue-500">45.8%</p>
+      <div class="w-full bg-gray-200 h-2 mt-2 rounded">
+        <div class="bg-blue-500 h-2 rounded" style="width: 45.8%;"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-6">
+    <div class="bg-white p-4 rounded shadow">
+      <h3 class="font-semibold mb-3">Recent Transactions</h3>
+      <ul class="space-y-2 text-sm">
+        <li class="flex justify-between">
+          <span>Internet Bill · Jul 21</span><span class="text-red-500">-$150.00</span>
+        </li>
+        <li class="flex justify-between">
+          <span>Movie Night · Jul 19</span><span class="text-red-500">-$35.00</span>
+        </li>
+        <li class="flex justify-between">
+          <span>Restaurant Dinner · Jul 17</span><span class="text-red-500">-$60.00</span>
+        </li>
+        <li class="flex justify-between">
+          <span>Freelance Work · Jul 14</span><span class="text-green-600">+$200.00</span>
+        </li>
+        <li class="flex justify-between">
+          <span>Gas Bill · Jul 9</span><span class="text-red-500">-$45.00</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="bg-white p-4 rounded shadow">
+      <h3 class="font-semibold mb-3">Alerts & Reminders</h3>
+      <ul class="space-y-3 text-sm">
+        <li class="border rounded p-2 bg-red-50 border-red-300">🚨 Your balance is below $500</li>
+        <li class="border rounded p-2 bg-blue-50 border-blue-300">📈 You've reached 60% of your Emergency Fund goal!</li>
+        <li class="border rounded p-2 bg-indigo-50 border-indigo-300">⚡ Electricity bill due in 3 days</li>
+      </ul>
+    </div>
+  </div>
+
+{% elif tab == "analytics" %}
+  <!-- 📊 Analytics -->
+  <div class="grid md:grid-cols-2 gap-6">
+    <div class="bg-white p-6 rounded shadow text-center">
+      <h3 class="font-semibold mb-2">Expense Breakdown</h3>
+      <div class="h-40 bg-gray-100 flex items-center justify-center text-gray-400">[Donut Chart]</div>
+    </div>
+    <div class="bg-white p-6 rounded shadow text-center">
+      <h3 class="font-semibold mb-2">Financial Health</h3>
+      <div class="text-5xl font-bold text-green-600">82</div>
+      <p class="text-sm text-gray-500">Your financial score is better than 75% of users</p>
+    </div>
+  </div>
+
+{% elif tab == "savings" %}
+  <!-- 🏦 Savings Goals -->
+  <div class="grid md:grid-cols-3 gap-6">
+    {% for goal in savings_goals %}
+      <div class="bg-white p-4 rounded shadow">
+        <h4 class="font-semibold">{{ goal.0 }}</h4>
+        <p class="text-sm text-gray-500 mb-2">{{ goal.1 }}</p>
+        <div class="w-full bg-gray-200 h-2 rounded mb-2">
+          <div class="bg-blue-600 h-2 rounded" style="width: {{ goal.2 }}"></div>
+        </div>
+        <p class="text-xs text-gray-400 mb-2">Target Date: {{ goal.3 }}</p>
+        <div class="flex gap-2">
+          <button class="bg-blue-600 text-white px-3 py-1 rounded text-sm">Add Funds</button>
+          <button class="border px-3 py-1 rounded text-sm">Edit</button>
+        </div>
+      </div>
+    {% endfor %}
+
+    <div class="flex items-center justify-center border-dashed border-2 rounded text-gray-400 h-40 cursor-pointer">
+      ➕ Add New Goal
+    </div>
+  </div>
+{% endif %}
+{% endblock %}

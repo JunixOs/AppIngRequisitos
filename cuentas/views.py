@@ -1,6 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-# Create your views here.
-def index(request):
-    return HttpResponse("Bienvenido a la app del modulo Cuentas")
+""" Views App CUENTAS """
+def profile(request):
+    tab = request.GET.get("tab", "general")
+    return render(request, "cuentas/profile.html", {"tab": tab})
+
+def settings(request):
+    return render(request, "cuentas/settings.html")

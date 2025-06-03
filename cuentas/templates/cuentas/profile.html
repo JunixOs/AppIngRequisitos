@@ -1,0 +1,75 @@
+{% extends "core/base_template.html" %}
+{% block title %}Perfil | BuilderQuantum{% endblock %}
+
+{% block content %}
+<h2 class="text-2xl font-bold mb-1">Perfil</h2>
+<p class="text-sm text-gray-500 mb-6">Gestiona tu información personal y preferencias</p>
+
+<div class="grid md:grid-cols-3 gap-6">
+  <!-- Panel izquierdo -->
+  <div class="bg-white p-4 rounded shadow col-span-1 text-center">
+    <div class="w-24 h-24 mx-auto rounded-full bg-gray-200 mb-3"></div>
+    <h3 class="font-semibold">Alex Johnson</h3>
+    <p class="text-sm text-gray-500 mb-3">alex@example.com</p>
+    <p class="text-xs text-gray-400">Nivel de educación financiera</p>
+    <div class="w-full bg-gray-200 h-2 rounded my-2">
+      <div class="bg-blue-500 h-2 rounded" style="width: 40%;"></div>
+    </div>
+    <button class="mt-3 px-4 py-2 bg-gray-100 rounded text-sm">Cambiar foto</button>
+  </div>
+
+  <!-- Panel derecho -->
+  <div class="col-span-2">
+    <!-- Tabs -->
+    <div class="flex space-x-4 mb-4 text-sm font-medium">
+      <a href="{% url 'profile' %}?tab=general" class="px-4 py-2 rounded {% if tab == 'general' %}bg-blue-100 text-blue-600{% endif %}">General</a>
+      <a href="{% url 'profile' %}?tab=security" class="px-4 py-2 rounded {% if tab == 'security' %}bg-blue-100 text-blue-600{% endif %}">Seguridad</a>
+      <a href="{% url 'profile' %}?tab=notifications" class="px-4 py-2 rounded {% if tab == 'notifications' %}bg-blue-100 text-blue-600{% endif %}">Notificaciones</a>
+    </div>
+
+    {% if tab == "general" %}
+    <!-- General -->
+    <div class="bg-white p-4 rounded shadow">
+      <h3 class="font-semibold mb-3">Información General</h3>
+      <form>
+        <div class="grid grid-cols-2 gap-4">
+          <input class="p-2 border rounded" placeholder="Nombre completo" value="Alex Johnson" />
+          <input class="p-2 border rounded" placeholder="Correo electrónico" value="alex@example.com" />
+          <input class="p-2 border rounded" placeholder="Teléfono" value="+34 600 000 000" />
+          <input class="p-2 border rounded" placeholder="País" value="España" />
+        </div>
+        <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">Guardar cambios</button>
+      </form>
+    </div>
+
+    {% elif tab == "security" %}
+    <!-- Seguridad -->
+    <div class="bg-white p-4 rounded shadow">
+      <h3 class="font-semibold mb-3">Seguridad</h3>
+      <form>
+        <div class="grid gap-4">
+          <input class="p-2 border rounded" placeholder="Contraseña actual" type="password" />
+          <input class="p-2 border rounded" placeholder="Nueva contraseña" type="password" />
+          <input class="p-2 border rounded" placeholder="Confirmar nueva contraseña" type="password" />
+        </div>
+        <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">Actualizar contraseña</button>
+      </form>
+    </div>
+
+    {% elif tab == "notifications" %}
+    <!-- Notificaciones -->
+    <div class="bg-white p-4 rounded shadow">
+      <h3 class="font-semibold mb-3">Notificaciones</h3>
+      <form class="space-y-2 text-sm text-gray-700">
+        <div><label><input type="checkbox" checked> Alertas de saldo bajo</label></div>
+        <div><label><input type="checkbox" checked> Recordatorios de facturas</label></div>
+        <div><label><input type="checkbox"> Metas de ahorro</label></div>
+        <div><label><input type="checkbox" checked> Consejos financieros</label></div>
+        <div><label><input type="checkbox"> Correos de marketing</label></div>
+        <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">Guardar preferencias</button>
+      </form>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

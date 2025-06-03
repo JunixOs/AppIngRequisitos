@@ -1,0 +1,27 @@
+{% extends "core/base_template.html" %}
+
+{% block title %}Reportes | BuilderQuantum{% endblock %}
+
+{% block content %}
+<h2 class="text-xl font-semibold mb-4">Reportes Financieros</h2>
+
+<div class="bg-white p-4 rounded-lg shadow mb-6">
+  <label for="periodo" class="block mb-2 text-sm font-medium text-gray-700">Periodo:</label>
+  <select id="periodo" class="w-full border p-2 rounded">
+    <option>Última semana</option>
+    <option>Último mes</option>
+    <option>Últimos 3 meses</option>
+  </select>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div class="bg-white p-4 rounded-lg shadow">
+    <h3 class="font-semibold mb-2">Gastos por categoría</h3>
+    <div class="h-40 bg-gray-100 flex items-center justify-center text-gray-400">[Gráfico de barras]</div>
+  </div>
+  <div class="bg-white p-4 rounded-lg shadow">
+    <h3 class="font-semibold mb-2">Ingresos vs Egresos</h3>
+    <div class="h-40 bg-gray-100 flex items-center justify-center text-gray-400">[Gráfico comparativo]</div>
+  </div>
+</div>
+{% endblock %}

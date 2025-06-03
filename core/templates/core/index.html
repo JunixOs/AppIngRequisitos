@@ -1,25 +1,9 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Bienvenido a FinGest</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'core/css/index.css' %}" />
-</head>
-<body>
-    <main class="welcome-container" role="main">
-        <section class="welcome-text">
-            <h1>Bienvenido a FinGest</h1>
-            <p>Gestiona tus finanzas personales de manera fácil, segura y eficiente. Controla tus gastos, ahorros y metas desde una sola plataforma.</p>
-            <div class="btn-group">
-                <a href="{% url 'Login Users' %}" class="btn">Iniciar Sesión</a>
-                <a href="{% url 'Register Users' %}" class="btn">Regístrate</a>
-            </div>
-        </section>
-        <section class="welcome-image" role="img" aria-label="Imagen financiera de bienvenida">
-            <!-- La imagen está en background css, reemplaza la ruta en url() -->
-        </section>
-    </main>
-</body>
-</html>
+<!-- builder/templates/builder/index.html -->
+{% extends "core/base_template.html" %}
+
+{% block title %}Inicio | BuilderQuantum{% endblock %}
+
+{% block content %}
+    <h2 class="text-xl font-semibold">Bienvenido a Builder Quantum</h2>
+    <p class="mt-2">Esta es la página de inicio del sistema.</p>
+{% endblock %}
