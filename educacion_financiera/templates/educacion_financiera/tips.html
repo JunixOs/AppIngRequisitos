@@ -1,0 +1,28 @@
+{% extends "core/base_template.html" %}
+{% block title %}Consejos Financieros | BuilderQuantum{% endblock %}
+
+{% block content %}
+<h2 class="text-2xl font-bold mb-1">Consejos Financieros</h2>
+<p class="text-sm text-gray-500 mb-6">Consejos y estrategias para mejorar tu salud financiera</p>
+
+<!-- Tabs -->
+<div class="flex space-x-4 mb-6 text-sm font-medium">
+  <a href="{% url 'tips' %}?tab=daily" class="px-4 py-2 rounded {% if tab == 'daily' %}bg-blue-100 text-blue-600{% endif %}">Diarios</a>
+  <a href="{% url 'tips' %}?tab=savings" class="px-4 py-2 rounded {% if tab == 'savings' %}bg-blue-100 text-blue-600{% endif %}">Ahorros</a>
+  <a href="{% url 'tips' %}?tab=debt" class="px-4 py-2 rounded {% if tab == 'debt' %}bg-blue-100 text-blue-600{% endif %}">Deudas</a>
+  <a href="{% url 'tips' %}?tab=investment" class="px-4 py-2 rounded {% if tab == 'investment' %}bg-blue-100 text-blue-600{% endif %}">Inversión</a>
+</div>
+
+<!-- Tips Cards -->
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+  {% for tip in tips %}
+    <div class="bg-white p-4 rounded shadow flex items-start gap-4">
+      <div class="text-2xl">{{ tip.0 }}</div>
+      <div>
+        <p class="font-semibold">{{ tip.1 }}</p>
+        <p class="text-sm text-gray-500">{{ tip.2 }}</p>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

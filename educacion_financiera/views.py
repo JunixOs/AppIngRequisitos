@@ -68,3 +68,37 @@ def courses(request):
         },
     ]
     return render(request, "educacion_financiera/courses.html", {"courses": course_list})
+
+def tips(request):
+    tab = request.GET.get("tab", "daily")
+
+    tips_data = {
+        "daily": [
+            ("📘", "Regla 50/30/20", "Destina 50% de ingresos a necesidades, 30% a deseos y 20% a ahorros."),
+            ("🌱", "Págate a ti primero", "Transfiere dinero a ahorros tan pronto como recibas ingresos."),
+            ("📊", "Seguimiento de Gastos", "Rastrea todos tus gastos diarios para identificar patrones."),
+            ("⏰", "Establecer Recordatorios", "Configura recordatorios para pagar facturas a tiempo."),
+            ("🍽️", "Planificación de Menús", "Planifica tus comidas semanalmente para reducir desperdicio."),
+            ("🛍️", "Compras Conscientes", "Espera 24h antes de compras no esenciales.")
+        ],
+        "savings": [
+            ("💧", "Automatizar Ahorros", "Configura transferencias automáticas a tu cuenta de ahorros."),
+            ("🛟", "Fondo de Emergencia", "Construye un fondo que cubra 3-6 meses de gastos básicos."),
+            ("💪", "Desafío de No Gastar", "Realiza un día/fin de semana sin gastos mensuales.")
+        ],
+        "debt": [
+            ("📉", "Método Avalancha", "Paga primero deudas con tasa de interés más alta."),
+            ("💱", "Consolidación de Deudas", "Unifica deudas con intereses altos en una sola con menor tasa."),
+            ("📝", "Negociación de Deudas", "Contacta acreedores para mejorar condiciones de pago.")
+        ],
+        "investment": [
+            ("📈", "Diversificación", "Invierte en distintos activos para reducir riesgos."),
+            ("⌛", "Inversión a Largo Plazo", "Evita decisiones impulsivas por volatilidad a corto plazo."),
+            ("🎓", "Educación Continua", "Edúcate sobre estrategias y opciones de inversión.")
+        ],
+    }
+
+    return render(request, "educacion_financiera/tips.html", {
+        "tab": tab,
+        "tips": tips_data.get(tab, [])
+    })
