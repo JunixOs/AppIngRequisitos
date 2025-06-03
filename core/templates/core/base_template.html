@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %}FinanceEdu{% endblock %}</title>
+    <title>{% block title %}FinGest{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 text-gray-800">
@@ -11,36 +11,74 @@
         <!-- Sidebar -->
         <aside class="w-64 bg-white shadow px-4 py-6 space-y-6 text-sm">
         <div class="text-xl font-bold flex items-center gap-2">
-            🏆 FinanceEdu
+            {% load static %}
+            <img src="{% static 'images/LogoFinGest.jpg' %}" alt="">
         </div>
 
         <div>
-            <p class="text-gray-500 uppercase text-xs mb-2">Visión General</p>
-            <ul class="space-y-2">
+            <p id="menu-toggle-vision" class="text-gray-500 uppercase text-xs mb-2">Visión General</p>
+            <ul id="menu-list-vision" class="space-y-2">
             <li><a href="{% url 'dashboard' %}" class="block hover:text-blue-600">📊 Panel Principal</a></li>
-            <li><a href="{% url 'transactions' %}" class="block hover:text-blue-600">💳 Transacciones</a></li>
-            <li><a href="#" class="block hover:text-blue-600">📈 Presupuestos</a></li> <!-- aún no creado -->
+            <li><a href="{% url 'transactions' %}" class="block hover:text-blue-600">💳 Transacciones</a></li> <!-- aún no creado -->
             <li><a href="{% url 'savings_goals' %}" class="block hover:text-blue-600">📉 Metas de Ahorro</a></li>
             </ul>
         </div>
+        <script>
+            const toggle1 = document.getElementById('menu-toggle-vision');
+            const menu1 = document.getElementById('menu-list-vision');
+            toggle1.addEventListener('click', () => {
+            menu1.classList.toggle('hidden');
+            if(menu1.classList.contains('hidden')) {
+                toggle1.textContent = 'Vision General';
+            } else {
+                toggle1.textContent = 'Vision General';
+            }
+            });
+        </script>
 
         <div>
-            <p class="text-gray-500 uppercase text-xs mb-2">Aprendizaje</p>
-            <ul class="space-y-2">
+            <p id="menu-toggle-aprendizaje" class="text-gray-500 uppercase text-xs mb-2">Aprendizaje</p>
+            <ul id="menu-list-aprendizaje"  class="space-y-2">
             <li><a href="{% url 'courses' %}" class="block hover:text-blue-600">📘 Cursos</a></li>
             <li><a href="{% url 'tips' %}" class="block hover:text-blue-600">💡 Consejos Financieros</a></li>
             <li><a href="{% url 'calculators' %}" class="block hover:text-blue-600">🧮 Calculadoras</a></li>
             </ul>
         </div>
+        <script>
+            const toggle2 = document.getElementById('menu-toggle-aprendizaje');
+            const menu2 = document.getElementById('menu-list-aprendizaje');
+            toggle2.addEventListener('click', () => {
+            menu2.classList.toggle('hidden');
+            if(menu2.classList.contains('hidden')) {
+                toggle2.textContent = 'Aprendizaje';
+            } else {
+                toggle2.textContent = 'Aprendizaje';
+            }
+            });
+        </script>
 
         <div>
-            <p class="text-gray-500 uppercase text-xs mb-2">Cuenta</p>
-            <ul class="space-y-2">
+            <p id="menu-toggle-cuenta" class="text-gray-500 uppercase text-xs mb-2 cursor-pointer">Cuenta</p>
+            <ul id="menu-list-cuenta" class="space-y-2 hidden">
             <li><a href="{% url 'profile' %}" class="block hover:text-blue-600">👤 Perfil</a></li>
             <li><a href="{% url 'settings' %}" class="block hover:text-blue-600">⚙️ Configuración</a></li>
+            <li><a href="#" class="block hover:text-blue-600">📈 Subcuentas</a></li>
             <li><a href="{% url 'reports' %}" class="block hover:text-blue-600">📄 Informes</a></li>
+            <li><a href="#" class="block hover:text-blue-600">Cerrar Sesion</a></li>
             </ul>
         </div>
+        <script>
+            const toggle3 = document.getElementById('menu-toggle-cuenta');
+            const menu3 = document.getElementById('menu-list-cuenta');
+            toggle3.addEventListener('click', () => {
+            menu3.classList.toggle('hidden');
+            if(menu3.classList.contains('hidden')) {
+                toggle3.textContent = 'Cuenta';
+            } else {
+                toggle3.textContent = 'Cuenta';
+            }
+            });
+        </script>
         </aside>
 
         <!-- Main Content -->
