@@ -24,7 +24,7 @@ def Login(request):
             return redirect('core:dashboard')  # o 'index' si tienes así la url
         else:
             error = "Correo o contraseña incorrectos."
-    return render(request, 'usuarios/login.html', {'error': error})
+    return render(request, 'usuarios/login.html')
 
 def Register(request):
     monedas = Moneda.objects.all()
