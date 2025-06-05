@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.contrib.auth import logout
+from django.shortcuts import redirect, render
 
 """ Views App CORE """
 
@@ -18,4 +19,8 @@ def dashboard(request):
         "tab": tab,
         "savings_goals": savings_goals
     })
+
+def logout_view(request):
+    logout(request)
+    return redirect('core:index')  # Cambia a la URL de login que uses
 

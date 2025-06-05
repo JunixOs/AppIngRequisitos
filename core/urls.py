@@ -5,5 +5,6 @@ app_name = 'core'
 """ Urls App CORE """
 urlpatterns = [
     path("" , views.Inicio , name="index"),
-    path("dashboard/" , views.dashboard , name="dashboard"),  
+    path("dashboard/" , views.dashboard , name="dashboard"),
+    path('logout/', views.logout_view, name='logout'),
 ]

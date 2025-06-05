@@ -64,7 +64,12 @@
             <li><a href="{% url 'settings' %}" class="block hover:text-blue-600">⚙️ Configuración</a></li>
             <li><a href="#" class="block hover:text-blue-600">📈 Subcuentas</a></li>
             <li><a href="{% url 'reports' %}" class="block hover:text-blue-600">📄 Informes</a></li>
-            <li><a href="#" class="block hover:text-blue-600">Cerrar Sesion</a></li>
+            <li>
+              <form method="post" action="{% url 'core:logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="block w-full text-left hover:text-blue-600 bg-transparent border-none p-0 m-0">Cerrar Sesión</button>
+              </form>
+            </li>
             </ul>
         </div>
         <script>
