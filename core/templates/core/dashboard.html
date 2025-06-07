@@ -7,9 +7,9 @@
 
 <!-- Tabs -->
 <div class="flex space-x-4 mb-6 text-sm font-medium">
-  <a href="{% url 'dashboard' %}?tab=overview" class="px-4 py-2 rounded {% if tab == 'overview' %}bg-blue-100 text-blue-600{% endif %}">Overview</a>
-  <a href="{% url 'dashboard' %}?tab=analytics" class="px-4 py-2 rounded {% if tab == 'analytics' %}bg-blue-100 text-blue-600{% endif %}">Analytics</a>
-  <a href="{% url 'dashboard' %}?tab=savings" class="px-4 py-2 rounded {% if tab == 'savings' %}bg-blue-100 text-blue-600{% endif %}">Savings Goals</a>
+  <a href="{% url 'core:dashboard' %}?tab=overview" class="px-4 py-2 rounded {% if tab == 'overview' %}bg-blue-100 text-blue-600{% endif %}">Overview</a>
+  <a href="{% url 'core:dashboard' %}?tab=analytics" class="px-4 py-2 rounded {% if tab == 'analytics' %}bg-blue-100 text-blue-600{% endif %}">Analytics</a>
+  <a href="{% url 'core:dashboard' %}?tab=savings" class="px-4 py-2 rounded {% if tab == 'savings' %}bg-blue-100 text-blue-600{% endif %}">Savings Goals</a>
 </div>
 
 <!-- Contenido dinámico -->
