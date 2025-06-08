@@ -8,9 +8,11 @@
 <div class="grid md:grid-cols-3 gap-6">
   <!-- Panel izquierdo -->
   <div class="bg-white p-4 rounded shadow col-span-1 text-center">
-    <div class="w-24 h-24 mx-auto rounded-full bg-gray-200 mb-3"></div>
-    <h3 class="font-semibold">Alex Johnson</h3>
-    <p class="text-sm text-gray-500 mb-3">alex@example.com</p>
+    <div class="w-24 h-24 mx-auto rounded-full bg-gray-200 mb-3 flex items-center justify-center">
+      <img class="w-20 h-20 rounded-full object-cover shadow-md border-2 border-green-400" src="data:image/{{ formato_imagen }};base64,{{ imagen_perfil }}" alt="">
+    </div>
+    <h3 class="font-semibold">{{ usuario.nombres }} {{ usuario.apellido_paterno }} {{ usuario.apellido_materno }}</h3>
+    <p class="text-sm text-gray-500 mb-3">{{ usuario.correo }}</p>
     <p class="text-xs text-gray-400">Nivel de educación financiera</p>
     <div class="w-full bg-gray-200 h-2 rounded my-2">
       <div class="bg-blue-500 h-2 rounded" style="width: 40%;"></div>
@@ -33,9 +35,9 @@
       <h3 class="font-semibold mb-3">Información General</h3>
       <form>
         <div class="grid grid-cols-2 gap-4">
-          <input class="p-2 border rounded" placeholder="Nombre completo" value="Alex Johnson" />
-          <input class="p-2 border rounded" placeholder="Correo electrónico" value="alex@example.com" />
-          <input class="p-2 border rounded" placeholder="Teléfono" value="+34 600 000 000" />
+          <input class="p-2 border rounded" placeholder="Nombre completo" value="{{ usuario.nombres }} {{ usuario.apellido_paterno }} {{ usuario.apellido_materno }}" />
+          <input class="p-2 border rounded" placeholder="Correo electrónico" value="{{ usuario.correo }}" />
+          <input class="p-2 border rounded" placeholder="Teléfono" value="+34 {{ usuario.telefono }}" />
           <input class="p-2 border rounded" placeholder="País" value="España" />
         </div>
         <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">Guardar cambios</button>

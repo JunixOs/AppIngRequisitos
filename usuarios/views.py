@@ -1,65 +1,95 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate , login , logout
+
 from django.shortcuts import redirect
 
 from cuentas.models import Moneda, Cuenta
 from .models import Usuario
-@login_required(login_url='login')
-def Index(request):
-    Data = {
-        "message" : "Mensaje enviado desde Django",
-    }
-    return render(request , 'index.html')
 
 def Login(request):
     if request.method == "POST":
         email = request.POST.get("email")
         password = request.POST.get("password")
 
-        usuario = Usuario.objects.filter(correo=email, contrasena=password).first()
+        usuario = authenticate(request , correo=email , password=password)
 
         if usuario:
-            print(f"Usuario encontrado: {usuario}")  # Para depuración
+            request.session['user_id'] = usuario.id
+            
+            login(request , usuario , backend='usuarios.backends.EmailBackend')
+
             return redirect('core:dashboard')  # o 'index' si tienes así la url
         else:
-            error = "Correo o contraseña incorrectos."
+            return render(request, 'usuarios/login.html' , {
+                "message_error": "Credenciales no validas.",
+            })
+
     return render(request, 'usuarios/login.html')
 
 def Register(request):
     monedas = Moneda.objects.all()
-    cuentas = Cuenta.objects.all()
+
     if request.method == "POST":
         documento_identidad = request.POST.get('documento_identidad')
         nombres = request.POST.get('nombres')
         apellido_paterno = request.POST.get('apellido_paterno')
         apellido_materno = request.POST.get('apellido_materno')
         correo = request.POST.get('correo')
-        saldo = request.POST.get('saldo')
         contrasena = request.POST.get('contrasena')
         telefono = request.POST.get('telefono')
         imagen_perfil = request.FILES.get('imagen_perfil')
+        
         id_moneda = request.POST.get('id_moneda')
-        id_cuenta = request.POST.get('id_cuenta')
+        nombre_cuenta = request.POST.get('nombre_cuenta')
+        saldo_inicial = request.POST.get('saldo_inicial')
+        descripcion = request.POST.get('descripcion_cuenta')
+        if(not descripcion):
+            descripcion = ""
+        if(not nombre_cuenta):
+            nombre_cuenta = "Cuenta principal"
 
         imagen_binario = imagen_perfil.read() if imagen_perfil else None
 
-        usuario = Usuario.objects.create(
+        if Usuario.objects.filter(correo=correo).exists():
+            error = "El correo ya está registrado."
+            return render(request, "usuarios/register.html", {"error": error})
+
+        if Usuario.objects.filter(password=contrasena).exists():
+            error = "El nombre de usuario ya está en uso."
+            return render(request, "usuarios/register.html", {"error": error})
+
+
+        cuenta = Cuenta.objects.create(
+            nombre=nombre_cuenta,
+            descripcion=descripcion,
+            saldo_cuenta=saldo_inicial,
+        )
+
+        usuario = Usuario.objects.create_user(
             documento_identidad=documento_identidad,
             nombres=nombres,
             apellido_paterno=apellido_paterno,
             apellido_materno=apellido_materno,
             correo=correo,
-            saldo=saldo,
-            contrasena=contrasena,
+            password=contrasena,
             telefono=telefono,
             imagen_perfil=imagen_binario,
             id_moneda_id=id_moneda,
-            id_cuenta_id=id_cuenta
+            id_cuenta=cuenta,
         )
-        return redirect('usuarios:login')  # Cambia esto según tu URL de éxito
+
+        request.session["user_id"] = usuario.id
+
+        login(request , usuario , backend='usuarios.backends.EmailBackend')
+
+        return redirect('core:dashboard')  # Cambia esto según tu URL de éxito
 
     return render(request, 'usuarios/register.html', {
         'monedas': monedas,
-        'cuentas': cuentas
     })
+
+@login_required
+def Fast_Access():
+    pass

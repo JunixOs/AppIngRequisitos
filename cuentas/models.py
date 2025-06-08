@@ -11,7 +11,7 @@ class Moneda(models.Model):
 
 class Cuenta(models.Model):
     nombre = models.CharField(max_length=50)
-    descripcion = models.CharField(max_length=50)
+    descripcion = models.CharField(max_length=300)
     saldo_cuenta = models.DecimalField(max_digits=15, decimal_places=2)
 
     def __str__(self):

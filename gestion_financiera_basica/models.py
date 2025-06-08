@@ -26,6 +26,7 @@ class MoldeAhorro(models.Model):
 
 
 class Movimiento(models.Model):
+    nombre = models.CharField(max_length=50)
     tipo = models.CharField(max_length=25)
     monto = models.DecimalField(max_digits=15, decimal_places=2)
     fecha_movimiento = models.DateTimeField()

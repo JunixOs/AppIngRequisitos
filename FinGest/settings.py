@@ -16,6 +16,16 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+SESSION_COOKIE_AGE = 3600
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+SESSION_SAVE_EVERY_REQUEST = True
+
+LOGIN_URL = 'usuarios:login'
+LOGIN_REDIRECT_URL = 'core:dashboard'
+
+AUTH_USER_MODEL = 'usuarios.Usuario'
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
@@ -57,6 +67,12 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+AUTHENTICATION_BACKENDS = [
+    'usuarios.backends.EmailBackend',  # ruta a tu backend personalizado
+    'django.contrib.auth.backends.ModelBackend',  # backend por defecto (opcional)
+]
+
 
 ROOT_URLCONF = "FinGest.urls"
 

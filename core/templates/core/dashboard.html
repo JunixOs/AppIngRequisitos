@@ -2,36 +2,36 @@
 {% block title %}Dashboard | BuilderQuantum{% endblock %}
 
 {% block content %}
-<h2 class="text-2xl font-bold mb-1">Dashboard</h2>
-<p class="text-sm text-gray-500 mb-6">Overview of your financial situation</p>
+<h2 class="text-2xl font-bold font-semibold text-gray-800 mb-1">Dashboard</h2>
+<p class="text-sm text-gray-600 mb-6">Overview of your financial situation</p>
 
 <!-- Tabs -->
 <div class="flex space-x-4 mb-6 text-sm font-medium">
-  <a href="{% url 'core:dashboard' %}?tab=overview" class="px-4 py-2 rounded {% if tab == 'overview' %}bg-blue-100 text-blue-600{% endif %}">Overview</a>
-  <a href="{% url 'core:dashboard' %}?tab=analytics" class="px-4 py-2 rounded {% if tab == 'analytics' %}bg-blue-100 text-blue-600{% endif %}">Analytics</a>
-  <a href="{% url 'core:dashboard' %}?tab=savings" class="px-4 py-2 rounded {% if tab == 'savings' %}bg-blue-100 text-blue-600{% endif %}">Savings Goals</a>
+  <a href="{% url 'core:dashboard' %}?tab=overview" class="px-4 py-2 rounded {% if tab == 'overview' %}bg-blue-100 text-blue-600{% endif %}">Panel General</a>
+  <a href="{% url 'core:dashboard' %}?tab=analytics" class="px-4 py-2 rounded {% if tab == 'analytics' %}bg-blue-100 text-blue-600{% endif %}">Analisis</a>
+  <a href="{% url 'core:dashboard' %}?tab=savings" class="px-4 py-2 rounded {% if tab == 'savings' %}bg-blue-100 text-blue-600{% endif %}">Metas de Ahorros</a>
 </div>
 
 <!-- Contenido dinámico -->
 {% if tab == "overview" %}
   <!-- 💰 Overview -->
   <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-6">
-    <div class="bg-white p-4 rounded shadow">
-      <p class="text-gray-500 text-sm">Total Balance</p>
-      <p class="text-xl font-semibold">$1490.00</p>
+    <div class="bg-yellow-100 p-4 rounded-lg shadow-md">
+      <p class="text-gray-500 text-sm">Saldo total</p>
+      <p class="text-xl font-semibold">{{ simbolo_moneda }} {{ total_balance }}</p>
       <p class="text-xs text-green-500">+5.2% from last month</p>
     </div>
-    <div class="bg-white p-4 rounded shadow">
-      <p class="text-gray-500 text-sm">Total Income</p>
-      <p class="text-xl font-semibold text-green-600">$2700.00</p>
-      <p class="text-xs text-gray-400">From 1 sources</p>
+    <div class="bg-yellow-100 p-4 rounded-lg shadow-md">
+      <p class="text-gray-500 text-sm">Ingresos Totales</p>
+      <p class="text-xl font-semibold text-green-600">{{ simbolo_moneda }} {{ total_ingresos }}</p>
+      <p class="text-xs text-gray-400">De {{ cantidad_ingresos }} movimientos</p>
     </div>
-    <div class="bg-white p-4 rounded shadow">
-      <p class="text-gray-500 text-sm">Total Expenses</p>
-      <p class="text-xl font-semibold text-red-500">$1210.00</p>
-      <p class="text-xs text-gray-400">44.8% of income</p>
+    <div class="bg-yellow-100 p-4 rounded-lg shadow-md">
+      <p class="text-gray-500 text-sm">Egresos Totales</p>
+      <p class="text-xl font-semibold text-red-500">-{{ simbolo_moneda }} {{ total_egresos }}</p>
+      <p class="text-xs text-gray-400">{{ porcentaje_de_ingresos_para_egresos }}% de los ingresos</p>
     </div>
-    <div class="bg-white p-4 rounded shadow">
+    <div class="bg-yellow-100 p-4 rounded-lg shadow-md">
       <p class="text-gray-500 text-sm">Savings Progress</p>
       <p class="text-xl font-semibold text-blue-500">45.8%</p>
       <div class="w-full bg-gray-200 h-2 mt-2 rounded">
@@ -41,28 +41,24 @@
   </div>
 
   <div class="grid md:grid-cols-2 gap-6">
-    <div class="bg-white p-4 rounded shadow">
+    <div class="bg-white p-4 rounded-lg shadow-md">
       <h3 class="font-semibold mb-3">Recent Transactions</h3>
       <ul class="space-y-2 text-sm">
-        <li class="flex justify-between">
-          <span>Internet Bill · Jul 21</span><span class="text-red-500">-$150.00</span>
-        </li>
-        <li class="flex justify-between">
-          <span>Movie Night · Jul 19</span><span class="text-red-500">-$35.00</span>
-        </li>
-        <li class="flex justify-between">
-          <span>Restaurant Dinner · Jul 17</span><span class="text-red-500">-$60.00</span>
-        </li>
-        <li class="flex justify-between">
-          <span>Freelance Work · Jul 14</span><span class="text-green-600">+$200.00</span>
-        </li>
-        <li class="flex justify-between">
-          <span>Gas Bill · Jul 9</span><span class="text-red-500">-$45.00</span>
-        </li>
+        {% for movimiento in movimientos %}
+          {% if movmiento.tipo == "Ingreso" %}
+            <li class="flex justify-between">
+              <span>Internet Bill · Jul 21</span><span class="text-green-600">{{ simbolo_moneda }} {{ movimiento.monto }}</span>
+            </li>
+            {% elif movimiento.tipo == "Egreso" %}
+              <li class="flex justify-between">
+                <span>Internet Bill · Jul 21</span><span class="text-red-500">-{{ simbolo_moneda }} {{ movimiento.monto }}</span>
+              </li>
+          {% endif %}
+        {% endfor %}
       </ul>
     </div>
 
-    <div class="bg-white p-4 rounded shadow">
+    <div class="bg-white p-4 rounded-lg shadow-md">
       <h3 class="font-semibold mb-3">Alerts & Reminders</h3>
       <ul class="space-y-3 text-sm">
         <li class="border rounded p-2 bg-red-50 border-red-300">🚨 Your balance is below $500</li>

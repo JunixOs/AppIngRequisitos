@@ -7,12 +7,20 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 text-gray-800">
-    <div class="min-h-screen flex">
+    <div class="min-h-screen flex flex-col md:flex-row">
         <!-- Sidebar -->
-        <aside class="w-64 bg-white shadow px-4 py-6 space-y-6 text-sm">
-        <div class="text-xl font-bold flex items-center gap-2">
+        <div class="md:hidden p-4 bg-white shadow flex justify-between items-center">
+            <button id="toggleSidebar" class="text-green-600 text-2xl focus:outline-none">
+                ☰
+            </button>
+            <a class="font-semibold text-lg" href="{% url 'core:dashboard' %}">FinGest</a>
+        </div>
+        <div id="sidebarOverlay" class="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm transition-all duration-300 opacity-0 pointer-events-none z-30 md:hidden"></div>
+        <aside id="side-bar" class="bg-emerald-100 shadow px-4 py-6 space-y-6 text-sm w-64 fixed top-0 left-0 h-full z-40 transform transition-transform duration-300 -translate-x-full md:translate-x-0 md:static md:block md:min-h-screen">
+        <div class="text-xl font-bold flex items-center gap-3">
             {% load static %}
-            <img src="{% static 'images/LogoFinGest.jpg' %}" alt="">
+            <img class="h-10 w-45 object-contain shadow-sm transition-transform hover:scale-105" src="{% static 'images/LogoFinGest.jpg' %}" alt="">
+            <a class="text-green-600 hidden lg:inline" href="{% url 'core:dashboard' %}">FinGest</a>
         </div>
 
         <div>
@@ -85,11 +93,28 @@
             });
         </script>
         </aside>
-
         <!-- Main Content -->
-        <main class="flex-1 p-6">
+        <main class="flex-1 p-6 mt-4 md:mt-0">
         {% block content %}{% endblock %}
         </main>
+
+        <script>
+            const toggleBtn = document.getElementById("toggleSidebar");
+            const sidebar = document.getElementById("side-bar");
+            const overlay = document.getElementById("sidebarOverlay");
+
+            // Abrir sidebar
+            toggleBtn.addEventListener("click", () => {
+                sidebar.classList.remove("-translate-x-full");
+                overlay.classList.remove("opacity-0", "pointer-events-none");
+            });
+
+            // Cerrar al hacer clic en el fondo
+            overlay.addEventListener("click", () => {
+                sidebar.classList.add("-translate-x-full");
+                overlay.classList.add("opacity-0", "pointer-events-none");
+            });
+        </script>
     </div>
 </body>
 </html>
