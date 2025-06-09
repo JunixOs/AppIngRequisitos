@@ -28,6 +28,7 @@ def Login(request):
 
     return render(request, 'usuarios/login.html')
 
+
 def Register(request):
     monedas = Moneda.objects.all()
 
@@ -40,31 +41,39 @@ def Register(request):
         contrasena = request.POST.get('contrasena')
         telefono = request.POST.get('telefono')
         imagen_perfil = request.FILES.get('imagen_perfil')
-        
-        id_moneda = request.POST.get('id_moneda')
+
+        id_moneda_seleccionada = request.POST.get('id_moneda')
+        try:
+            moneda_obj = Moneda.objects.get(id=id_moneda_seleccionada)
+        except Moneda.DoesNotExist:
+            error = "La moneda seleccionada no es válida."
+            return render(request, "usuarios/register.html", {"error": error, 'monedas': monedas})
+
         nombre_cuenta = request.POST.get('nombre_cuenta')
         saldo_inicial = request.POST.get('saldo_inicial')
         descripcion = request.POST.get('descripcion_cuenta')
-        if(not descripcion):
+
+        if not descripcion:
             descripcion = ""
-        if(not nombre_cuenta):
+        if not nombre_cuenta:
             nombre_cuenta = "Cuenta principal"
+
+        try:
+            saldo_inicial_float = float(saldo_inicial)
+        except (ValueError, TypeError):
+            error = "El saldo inicial debe ser un número válido."
+            return render(request, "usuarios/register.html", {"error": error, 'monedas': monedas})
 
         imagen_binario = imagen_perfil.read() if imagen_perfil else None
 
         if Usuario.objects.filter(correo=correo).exists():
             error = "El correo ya está registrado."
-            return render(request, "usuarios/register.html", {"error": error})
-
-        if Usuario.objects.filter(password=contrasena).exists():
-            error = "El nombre de usuario ya está en uso."
-            return render(request, "usuarios/register.html", {"error": error})
-
+            return render(request, "usuarios/register.html", {"error": error, 'monedas': monedas})
 
         cuenta = Cuenta.objects.create(
             nombre=nombre_cuenta,
             descripcion=descripcion,
-            saldo_cuenta=saldo_inicial,
+            saldo_cuenta=saldo_inicial_float,
         )
 
         usuario = Usuario.objects.create_user(
@@ -76,15 +85,13 @@ def Register(request):
             password=contrasena,
             telefono=telefono,
             imagen_perfil=imagen_binario,
-            id_moneda_id=id_moneda,
+            id_moneda=moneda_obj,
             id_cuenta=cuenta,
         )
 
-        request.session["user_id"] = usuario.id
+        login(request, usuario, backend='usuarios.backends.EmailBackend')
 
-        login(request , usuario , backend='usuarios.backends.EmailBackend')
-
-        return redirect('core:dashboard')  # Cambia esto según tu URL de éxito
+        return redirect('core:dashboard')
 
     return render(request, 'usuarios/register.html', {
         'monedas': monedas,

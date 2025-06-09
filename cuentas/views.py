@@ -13,10 +13,13 @@ def profile(request):
     user_id = request.user.id
 
     usuario = Usuario.objects.get(id=user_id)
-    imagen_bytes = usuario.imagen_perfil
-    imagen_base64 = base64.b64encode(imagen_bytes).decode('utf-8')
+    formato_imagen = None
+    imagen_base64 = None
+    if(usuario.imagen_perfil):
+        imagen_bytes = usuario.imagen_perfil
+        imagen_base64 = base64.b64encode(imagen_bytes).decode('utf-8')
 
-    formato_imagen = Image.open(io.BytesIO(imagen_bytes)).format
+        formato_imagen = Image.open(io.BytesIO(imagen_bytes)).format
 
     tab = request.GET.get("tab", "general")
     return render(request, "cuentas/profile.html", {

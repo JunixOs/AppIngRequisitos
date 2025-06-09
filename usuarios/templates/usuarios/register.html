@@ -21,12 +21,10 @@
       }
   </style>
   <body class="bg-gradient-to-br from-blue-100 via-white to-indigo-100 min-h-screen flex items-center justify-center relative overflow-hidden">
-    <!-- Fondo decorativo animado -->
     <div class="absolute inset-0 pointer-events-none z-0">
       <div class="absolute -top-32 -left-32 w-96 h-96 bg-blue-400 opacity-20 rounded-full blur-3xl animate-pulse"></div>
       <div class="absolute bottom-0 right-0 w-80 h-80 bg-indigo-400 opacity-20 rounded-full blur-2xl animate-pulse delay-200"></div>
     </div>
-    <!-- Modal flotante de registro -->
     <div id="modal-register" class="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
       <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-lg relative animate__animated animate__fadeInDown">
         <button onclick="window.location.href='/'" class="absolute top-3 right-3 text-gray-400 hover:text-red-500 text-2xl">&times;</button>
@@ -105,7 +103,6 @@
         </form>
       </div>
     </div>
-    <!-- Script para cerrar modal con ESC -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const select = document.querySelector('select[name="codigo_pais"]');
