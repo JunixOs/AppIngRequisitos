@@ -25,7 +25,12 @@ def savings_goals(request):
     })
 
 def transactions(request):
+    user_id = request.user.id
+
     filter_type = request.GET.get("filter", "all")
+
+    transacciones = Movimiento.objects.filter(id_cuenta__id_usuario=user_id)
+    # egresos = Movimiento.objects.filter(id_cuenta__id_usuario=user_id , tipo="egreso")
 
     all_transactions = [
         ("Internet Bill", "Jul 21, 2023", "Utilities", "-$150.00", "bg-teal-500"),
@@ -46,8 +51,7 @@ def transactions(request):
         transactions = all_transactions
 
     return render(request, "gestion_financiera_basica/transactions.html", {
-        "transactions": transactions,
-        "filter_type": filter_type,
+        "transactions": all_transactions,
     })
     
      
