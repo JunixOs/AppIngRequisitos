@@ -13,82 +13,79 @@
 
 {% if tab == "savings" %}
 <div class="flex justify-center">
-  <form method="post" class="bg-white p-6 rounded shadow max-w-xl space-y-4">
-    {% csrf_token %}
+  <form class="bg-white p-6 rounded shadow max-w-xl space-y-4" id="savings-form">
     <h3 class="text-lg font-semibold">Calculadora de Ahorros</h3>
     <p class="text-sm text-gray-500">Calcula cuánto ahorrarás con depósitos regulares e interés compuesto</p>
-      <div>
-          <label for="Tiempo">Elige la unidad de tiempo:</label>
-          <select id="Tiempo" name="Tiempo">
-            <option value="Año">Año</option>
-            <option value="Mes">Mes</option>
-            <option value="Semana">Semana</option>
-          </select>
-      </div>
+
+    <div>
+      <label for="tiempo">Elige la unidad de tiempo:</label>
+      <select id="tiempo" class="border p-2 rounded">
+        <option value="Año">Año</option>
+        <option value="Mes">Mes</option>
+        <option value="Semana">Semana</option>
+      </select>
+    </div>
+
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      
       <div>
-        <label class="text-sm">Cantidad inicial (€)</label>
-        <input type="number" name="initial" min="1" class="w-full border p-2 rounded" required />
+        <label class="text-sm" for="capital">Cantidad inicial (€)</label>
+        <input type="number" id="capital" min="0" class="w-full border p-2 rounded" required />
       </div>
       <div>
-        <label class="text-sm">Depósito mensual (€)</label>
-        <input type="number" name="monthly" min="1" class="w-full border p-2 rounded" required />
+        <label class="text-sm" for="aporte">  (€)</label>
+        <input type="number" id="aporte" min="0" class="w-full border p-2 rounded" required />
       </div>
       <div>
-        <label class="text-sm">Tasa de interés anual (%)</label>
-        <input type="number" name="rate" min="1" class="w-full border p-2 rounded" required />
+        <label class="text-sm" for="tasa">Tasa de interés anual (%)</label>
+        <input type="number" id="tasa" min="0" step="0.01" class="w-full border p-2 rounded" required />
       </div>
       <div>
-        <label class="text-sm">Años</label>
-        <input type="number" name="years" min="1" class="w-full border p-2 rounded" required />
+        <label class="text-sm" id="duracion-label" for="duracion"> </label>
+        <input type="number" id="duracion" min="1" class="w-full border p-2 rounded" required />
       </div>
     </div>
 
     <button type="submit" class="bg-gray-900 text-white w-full py-2 rounded">Calcular</button>
-
-    {% if result %}
-      <p class="mt-4 font-semibold text-blue-600">Resultado estimado: €{{ result }}</p>
-    {% endif %}
+    <div id="resultado" class="mt-4 font-semibold text-blue-600"></div>
   </form>
 </div>
 
 {% elif tab == "loan" %}
 <div class="flex justify-center">
-  <form method="post" class="bg-white p-6 rounded shadow max-w-xl space-y-4">
-    {% csrf_token %}
+  <form class="bg-white p-6 rounded shadow max-w-xl space-y-4" id="loan-form">
     <h3 class="text-lg font-semibold">Calculadora de Préstamos</h3>
     <p class="text-sm text-gray-500">Calcula tu pago semanal, mensual o anual e interés total</p>
+
     <div>
-        <label for="Tiempo">Elige la unidad de tiempo:</label>
-        <select name="Tiempo" id="Tiempo">
-          <option value="Año">Año</option>
-          <option value="Mes">Mes</option>
-          <option value="Semana">Semana</option>
-        </select>
-      </div>
+      <label for="unidad-prestamo">Elige la unidad de tiempo:</label>
+      <select name="unidad-prestamo" id="unidad-prestamo" class="border p-2 rounded">
+        <option value="Año">Año</option>
+        <option value="Mes">Mes</option>
+        <option value="Semana">Semana</option>
+      </select>
+    </div>
+
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    
       <div>
-        <label class="text-sm">Cantidad del préstamo (€)</label>
-        <input type="number" name="amount" min="1" class="w-full border p-2 rounded" required />
+        <label class="text-sm" for="monto">Cantidad del préstamo (€)</label>
+        <input type="number" id="monto" min="1" class="w-full border p-2 rounded" required />
       </div>
       <div>
-        <label class="text-sm">Tasa de interés anual (%)</label>
-        <input type="number" name="rate" min="1" class="w-full border p-2 rounded" required />
+        <label class="text-sm" for="interes">Tasa de interés anual (%)</label>
+        <input type="number" id="interes" min="0" step="0.01" class="w-full border p-2 rounded" required />
       </div>
       <div>
-        <label class="text-sm">Plazo del préstamo (años)</label>
-        <input type="number" name="years" min="1" class="w-full border p-2 rounded" required />
+        <label class="text-sm" id="plazo-label" for="plazo">Cantidad de años</label>
+        <input type="number" id="plazo" min="1" class="w-full border p-2 rounded" required />
       </div>
     </div>
 
     <button type="submit" class="bg-gray-900 text-white w-full py-2 rounded">Calcular</button>
-
-    {% if result %}
-      <p class="mt-4 font-semibold text-blue-600">Pago mensual estimado: €{{ result }}</p>
-    {% endif %}
+    <div id="resultado-prestamo" class="mt-4 font-semibold text-blue-600"></div>
   </form>
-  {% endif %}
 </div>
+{% endif %}
+
 {% endblock %}
+
+<!-- Script -->

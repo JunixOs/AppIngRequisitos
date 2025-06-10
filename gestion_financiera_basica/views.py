@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
-
+from .forms import MovimientoForm
 """ Views App GESTION_FINANCIERA_BASICA """
 def savings_goals(request):
     goals = [
@@ -44,3 +44,14 @@ def transactions(request):
         "transactions": transactions,
         "filter_type": filter_type,
     })
+
+def agregar_movimiento(request):
+    if request.method == 'POST':
+        form = MovimientoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('transactions')  # nombre de la vista que muestra transacciones
+    else:
+        form = MovimientoForm()
+    
+    return render(request, 'gestion_financiera_basica/add_transaction.html', {'form': form})

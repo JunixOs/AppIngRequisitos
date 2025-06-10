@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}FinGest{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
 </head>
 <body class="bg-gray-100 text-gray-800">
     <div class="min-h-screen flex flex-col md:flex-row">
@@ -115,6 +117,105 @@
                 overlay.classList.add("opacity-0", "pointer-events-none");
             });
         </script>
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+          <script>
+            flatpickr("input[name='fecha_movimiento']", {
+                minDate: "2020-01-01",
+                maxDate: new Date().toISOString().split('T')[0],
+                disableMobile: true,
+                dateFormat: "Y-m-d",
+            });
+          </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const form = document.getElementById("savings-form");
+                const unidadSelect = document.getElementById("tiempo");
+                const duracionLabel = document.getElementById("duracion-label");
+                const aporteLabel = document.querySelector("label[for='aporte']");
+
+                function actualizarLabels() {
+                    const unidad = unidadSelect.value;
+                    duracionLabel.textContent = `Cantidad de ${unidad.toLowerCase()}s`;
+                    if (unidad === "Mes") aporteLabel.textContent = "Depósito mensual (€)";
+                    else if (unidad === "Semana") aporteLabel.textContent = "Depósito semanal (€)";
+                    else aporteLabel.textContent = "Depósito anual (€)";
+                }
+
+    // Se actualiza al cambiar el combo
+                unidadSelect.addEventListener("change", actualizarLabels);
+
+    // Se actualiza al cargar la página
+                actualizarLabels();
+
+                form.addEventListener("submit", function (e) {
+                    e.preventDefault();
+
+                    const capital = parseFloat(document.getElementById("capital").value) || 0;
+                    const aporte = parseFloat(document.getElementById("aporte").value) || 0;
+                    const tasa = parseFloat(document.getElementById("tasa").value) || 0;
+                    const duracion = parseFloat(document.getElementById("duracion").value) || 0;
+                    const unidad = unidadSelect.value;
+
+                    let periodosPorAño = 1;
+                    if (unidad === "Mes") periodosPorAño = 12;
+                    else if (unidad === "Semana") periodosPorAño = 52;
+
+                    const r = (tasa / 100) / periodosPorAño;
+                    const n = duracion;
+
+                    const montoFinal = capital * Math.pow(1 + r, n) + aporte * ((Math.pow(1 + r, n) - 1) / r);
+                    document.getElementById("resultado").textContent =
+                        `Ahorro estimado: € ${montoFinal.toFixed(4)}`;
+                });
+            });
+        </script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const unidadSelectPrestamo = document.getElementById("unidad-prestamo");
+                const plazoLabel = document.getElementById("plazo-label");
+                const loanForm = document.getElementById("loan-form");
+
+            function actualizarLabelPrestamo() {
+                const unidad = unidadSelectPrestamo.value;
+                plazoLabel.textContent = `Cantidad de ${unidad.toLowerCase()}s`;
+            }
+
+            if (unidadSelectPrestamo && plazoLabel) {
+                unidadSelectPrestamo.addEventListener("change", actualizarLabelPrestamo);
+                actualizarLabelPrestamo();
+            }
+
+            if (loanForm) {
+                loanForm.addEventListener("submit", function (e) {
+                    e.preventDefault();
+
+                    const monto = parseFloat(document.getElementById("monto").value) || 0;
+                    const interesAnual = parseFloat(document.getElementById("interes").value) || 0;
+                    const plazo = parseFloat(document.getElementById("plazo").value) || 0;
+                    const unidad = unidadSelectPrestamo.value;
+
+                    let periodosPorAnio = 1;
+                    if (unidad === "Mes") periodosPorAnio = 12;
+                    else if (unidad === "Semana") periodosPorAnio = 52;
+
+                    const r = (interesAnual / 100) / periodosPorAnio;
+                    const n = plazo;
+
+                    let pago = 0;
+                    if (r === 0) {
+                        pago = monto / n;
+                    } else {
+                        pago = monto * (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+                    }
+
+                    document.getElementById("resultado-prestamo").textContent =
+                        `Pago por ${unidad.toLowerCase()}: € ${pago.toFixed(4)}`;
+                    });
+                }
+            });
+        </script>
+
     </div>
 </body>
 </html>

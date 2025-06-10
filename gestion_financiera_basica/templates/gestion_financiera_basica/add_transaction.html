@@ -1,0 +1,32 @@
+{% extends 'core/base_template.html' %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-md">
+  <h2 class="text-2xl font-semibold text-green-700 mb-6 text-center">➕ Añadir Movimiento</h2>
+
+  <form method="post" class="space-y-6">
+    {% csrf_token %}
+    
+    {% for field in form %}
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">
+          {{ field.label_tag }}
+        </label>
+        {{ field }}
+        {% if field.errors %}
+          <p class="text-red-500 text-sm mt-1">{{ field.errors|join:", " }}</p>
+        {% endif %}
+      </div>
+    {% endfor %}
+
+    <div class="flex justify-between items-center">
+      <a href="{% url 'transactions' %}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded transition duration-200">
+        ⬅ Volver
+      </a>
+      <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded transition duration-200">
+        💾 Guardar
+      </button>
+    </div>
+  </form>
+</div>
+{% endblock %}
