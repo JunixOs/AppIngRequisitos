@@ -7,10 +7,10 @@
 
 <!-- Tabs -->
 <div class="flex space-x-4 mb-6 text-sm font-medium">
-  <a href="{% url 'tips' %}?tab=daily" class="px-4 py-2 rounded {% if tab == 'daily' %}bg-blue-100 text-blue-600{% endif %}">Diarios</a>
-  <a href="{% url 'tips' %}?tab=savings" class="px-4 py-2 rounded {% if tab == 'savings' %}bg-blue-100 text-blue-600{% endif %}">Ahorros</a>
-  <a href="{% url 'tips' %}?tab=debt" class="px-4 py-2 rounded {% if tab == 'debt' %}bg-blue-100 text-blue-600{% endif %}">Deudas</a>
-  <a href="{% url 'tips' %}?tab=investment" class="px-4 py-2 rounded {% if tab == 'investment' %}bg-blue-100 text-blue-600{% endif %}">Inversión</a>
+  <a href="{% url 'educacion_financiera:tips' %}?tab=daily" class="px-4 py-2 rounded {% if tab == 'daily' %}bg-blue-100 text-blue-600{% endif %}">Diarios</a>
+  <a href="{% url 'educacion_financiera:tips' %}?tab=savings" class="px-4 py-2 rounded {% if tab == 'savings' %}bg-blue-100 text-blue-600{% endif %}">Ahorros</a>
+  <a href="{% url 'educacion_financiera:tips' %}?tab=debt" class="px-4 py-2 rounded {% if tab == 'debt' %}bg-blue-100 text-blue-600{% endif %}">Deudas</a>
+  <a href="{% url 'educacion_financiera:tips' %}?tab=investment" class="px-4 py-2 rounded {% if tab == 'investment' %}bg-blue-100 text-blue-600{% endif %}">Inversión</a>
 </div>
 
 <!-- Tips Cards -->

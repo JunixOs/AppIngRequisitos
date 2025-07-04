@@ -7,8 +7,8 @@
 
 <!-- Tabs -->
 <div class="flex space-x-4 mb-6 text-sm font-medium">
-  <a href="{% url 'calculators' %}?tab=savings" class="px-4 py-2 rounded {% if tab == 'savings' %}bg-blue-100 text-blue-600{% endif %}">Ahorros</a>
-  <a href="{% url 'calculators' %}?tab=loan" class="px-4 py-2 rounded {% if tab == 'loan' %}bg-blue-100 text-blue-600{% endif %}">Préstamos</a>
+  <a href="{% url 'educacion_financiera:calculators' %}?tab=savings" class="px-4 py-2 rounded {% if tab == 'savings' %}bg-blue-100 text-blue-600{% endif %}">Ahorros</a>
+  <a href="{% url 'educacion_financiera:calculators' %}?tab=loan" class="px-4 py-2 rounded {% if tab == 'loan' %}bg-blue-100 text-blue-600{% endif %}">Préstamos</a>
 </div>
 
 {% if tab == "savings" %}

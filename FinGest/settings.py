@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     "cuentas",
     "educacion_financiera",
     "FinGest",
+    'widget_tweaks',
     "alertas_notificaciones",
     "gestion_financiera_basica",
     "usuarios",
