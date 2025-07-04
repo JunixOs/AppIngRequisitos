@@ -19,6 +19,16 @@
       .scrollbar-custom::-webkit-scrollbar-track {
         background-color: #f3f4f6; /* Tailwind's gray-100 */
       }
+
+      input[name="pin_acceso_rapido"]::-webkit-inner-spin-button,
+      input[name="pin_acceso_rapido"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      input[name="pin_acceso_rapido"] {
+        -moz-appearance: textfield;
+      }
   </style>
   <body class="bg-gradient-to-br from-blue-100 via-white to-indigo-100 min-h-screen flex items-center justify-center relative overflow-hidden">
     <div class="absolute inset-0 pointer-events-none z-0">
@@ -29,81 +39,129 @@
       <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-lg relative animate__animated animate__fadeInDown">
         <button onclick="window.location.href='/'" class="absolute top-3 right-3 text-gray-400 hover:text-red-500 text-2xl">&times;</button>
         <h2 class="text-2xl font-bold text-green-700 mb-6 text-center">Crear Cuenta</h2>
-        <form method="post" enctype="multipart/form-data" class="scrollbar-custom space-y-4 max-h-[70vh] overflow-y-auto px-4">
+        <form method="post" enctype="multipart/form-data" class="scrollbar-custom space-y-4 max-h-[70vh] overflow-y-auto px-4" action="{% url 'usuarios:register' %}">
           {% csrf_token %}
+          
+          {% if error %}
+            <div class="mb-4 text-red-600 text-center font-semibold bg-red-100 rounded p-2">
+              {{ error }}
+            </div>
+          {% endif %}
+
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label class="block text-sm font-medium mb-1">Nombres</label>
-              <input type="text" name="nombres" maxlength="100" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition" />
+              <input type="text" name="nombres" value="{{ nombres|default:'' }}" maxlength="100" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition" />
             </div>
             <div>
               <label class="block text-sm font-medium mb-1">Documento de Identidad</label>
-              <input type="text" name="documento_identidad" maxlength="25" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition" />
+              <input type="text" name="documento_identidad" value="{{ documento_identidad|default:'' }}" maxlength="25" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition" />
             </div>
           </div>
+
           <div class="grid grid-cols-2 gap-4">
             <div>
               <label class="block text-sm font-medium mb-1">Apellido Paterno</label>
-              <input type="text" name="apellido_paterno" maxlength="50" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition" />
+              <input type="text" name="apellido_paterno" value="{{ apellido_paterno|default:'' }}" maxlength="50" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition" />
             </div>
             <div>
               <label class="block text-sm font-medium mb-1">Apellido Materno</label>
-              <input type="text" name="apellido_materno" maxlength="50" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition" />
+              <input type="text" name="apellido_materno" value="{{ apellido_materno|default:'' }}" maxlength="50" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition" />
             </div>
           </div>
+
           <div>
             <label class="block text-sm font-medium mb-1">Correo</label>
-            <input type="email" name="correo" maxlength="100" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition" />
+            <input type="email" name="correo" value="{{ correo|default:'' }}" maxlength="100" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition" />
           </div>
+
           <div class="grid grid-cols-2 gap-4">
             <div>
               <label class="block text-sm font-medium mb-1">Saldo Inicial</label>
-              <input type="number" name="saldo_inicial" step="0.01" min="0" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition" />
+              <input type="number" name="saldo_inicial" step="0.01" min="0" value="{{ saldo_inicial|default:'' }}" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition" />
             </div>
             <div class="mb-4">
               <label class="block text-sm font-medium mb-1">Teléfono</label>
               <div class="flex gap-2 min-w-0">
                 <select name="codigo_pais" required class="w-20 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400">
-                  <option value="+51">+51</option>
-                  <option value="+1">+1</option>
-                  <option value="+54">+54</option>
+                  <option value="+51" {% if codigo_pais == '+51' %}selected{% endif %}>+51</option>
+                  <option value="+1" {% if codigo_pais == '+1' %}selected{% endif %}>+1</option>
+                  <option value="+54" {% if codigo_pais == '+54' %}selected{% endif %}>+54</option>
                 </select>
-                <input type="tel" name="telefono" required pattern="\d{7,15}" class="flex-1 min-w-0 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition" />
+                <input type="tel" name="telefono" value="{{ telefono|default:'' }}" required pattern="\d{7,15}" class="flex-1 min-w-0 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition" />
               </div>
             </div>
           </div>
+
           <div>
             <label class="block text-sm font-medium mb-1">Contraseña</label>
-            <input type="password" name="contrasena" maxlength="20" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition" />
+            <input type="password" name="contrasena" value="{{ contrasena|default:'' }}" maxlength="20" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition" />
           </div>
+
           <div>
             <label class="block text-sm font-medium mb-1">Imagen de Perfil</label>
             <input type="file" name="imagen_perfil" accept="image/*" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition" />
           </div>
+
           <div class="grid grid-cols-2 gap-4">
             <div>
               <label class="block text-sm font-medium mb-1">Moneda</label>
               <select name="id_moneda" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition">
                 <option value="">Seleccione una moneda</option>
                 {% for moneda in monedas %}
-                  <option value="{{ moneda.id }}">{{ moneda.nombre }} ({{moneda.simbolo}})</option>
+                  <option value="{{ moneda.id }}" {% if id_moneda == moneda.id|stringformat:'s' %}selected{% endif %}>{{ moneda.nombre }} ({{ moneda.simbolo }})</option>
                 {% endfor %}
               </select>
             </div>
             <div>
               <label class="block text-sm font-medium mb-1" for="nombre_cuenta">Nombre de cuenta principal</label>
-              <input class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition" type="text" name="nombre_cuenta" id="">
+              <input type="text" name="nombre_cuenta" value="{{ nombre_cuenta|default:'' }}" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition">
             </div>
           </div>
+
           <div class="grid grid-cols-1 gap-4"> 
             <label class="block text-sm font-medium mb-1" for="descripcion_cuenta">Descripcion de la cuenta principal</label>
-            <textarea class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none resize-none" name="descripcion_cuenta" id="" cols="30" rows="10" maxlength="255" placeholder="Maximo 255 caracteres"></textarea>
+            <textarea name="descripcion_cuenta" cols="30" rows="10" maxlength="255" placeholder="Maximo 255 caracteres"
+              class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none resize-none">{{ descripcion|default:'' }}</textarea>
           </div>
+
           <div class="grid grid-cols-1 gap-4"> 
-            <label class="block text-sm font-medium mb-1" for="pin_acceso_rapido">Pin de acceso rapido</label>
-            <input class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition" class="" type="number" name="pin_acceso_rapido" required placeholder="123456" maxlength="6">
+            <label class="block text-sm font-medium mb-1" for="pin_acceso_rapido_1">Pin de acceso rápido</label>
+            <div class="grid grid-cols-6 gap-2">
+              {% if pin_acceso_rapido %}
+                {% for i in pin_acceso_rapido %}
+                <input
+                  type="text"
+                  name="pin_acceso_rapido_{{ forloop.counter }}"
+                  maxlength="1"
+                  pattern="\d"
+                  required
+                  value="{{ i|default:'' }}"
+                  class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 text-center transition"
+                  inputmode="numeric"
+                  autocomplete="off"
+                />
+                {% endfor %}
+              {% else %}
+                {% for i in "123456" %}
+                <input
+                  type="text"
+                  name="pin_acceso_rapido_{{ forloop.counter }}"
+                  maxlength="1"
+                  pattern="\d"
+                  required
+                  class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 text-center transition"
+                  inputmode="numeric"
+                  autocomplete="off"
+                />
+                {% endfor %}
+              {% endif %}
+            </div>
           </div>
-          <button type="submit" class="scale-90 w-full bg-gradient-to-r from-green-500 to-yellow-400 text-white font-bold py-3 rounded-lg shadow hover:scale-100 transition">Registrarse</button>
+
+          <button type="submit" class="scale-90 w-full bg-gradient-to-r from-green-500 to-yellow-400 text-white font-bold py-3 rounded-lg shadow hover:scale-100 transition">
+            Registrarse
+          </button>
         </form>
       </div>
     </div>
@@ -136,6 +194,30 @@
         if (e.key === 'Escape') {
           window.location.href = '/';
         }
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const inputs = document.querySelectorAll('input[name^="pin_acceso_rapido_"]');
+
+        inputs.forEach((input, index) => {
+          input.addEventListener('input', () => {
+            if (input.value.length === 1) {
+              // Mover foco al siguiente input si existe
+              if (index + 1 < inputs.length) {
+                inputs[index + 1].focus();
+              }
+            }
+          });
+
+          input.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace' && input.value === '') {
+              // Volver al input anterior si presiona backspace y está vacío
+              if (index - 1 >= 0) {
+                inputs[index - 1].focus();
+              }
+            }
+          });
+        });
       });
     </script>
   </body>

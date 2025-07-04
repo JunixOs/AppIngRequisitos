@@ -29,7 +29,8 @@
                 <!-- Visión General -->
                 <div class="border border-gray-200 rounded-lg overflow-hidden transition-shadow hover:shadow-lg">
                 <button class="accordion-header w-full flex justify-between items-center px-4 py-3 bg-emerald-50 hover:bg-emerald-100 focus:outline-none transition-colors"
-                        onclick="toggleSection('menu-list-vision', this)">
+                        onclick="toggleSection('menu-list-vision', this)"
+                        data-id="vision_general">
                     <div class="flex items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600 transition-transform duration-300 transform"
                         viewBox="0 0 20 20" fill="currentColor">
@@ -43,15 +44,16 @@
                     <ul id="menu-list-vision"
                         class="accordion-panel overflow-hidden max-h-0 opacity-0 pointer-events-none transition-all duration-300 ease-in-out space-y-2 pl-2">
                     <li><a href="{% url 'core:dashboard' %}" class="block px-2 py-1 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors">📊 Panel Principal</a></li>
-                    <li><a href="{% url 'transactions' %}" class="block px-2 py-1 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors">💳 Transacciones</a></li>
-                    <li><a href="{% url 'savings_goals' %}" class="block px-2 py-1 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors">📉 Metas de Ahorro</a></li>
+                    <li><a href="{% url 'gestion_financiera_basica:transactions' %}" class="block px-2 py-1 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors">💳 Transacciones</a></li>
+                    <li><a href="{% url 'gestion_financiera_basica:savings_goals' %}" class="block px-2 py-1 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors">📉 Metas de Ahorro</a></li>
                     </ul>
                 </div>
 
                 <!-- Aprendizaje -->
                 <div class="border border-gray-200 rounded-lg overflow-hidden transition-shadow hover:shadow-lg">
                 <button class="accordion-header w-full flex justify-between items-center px-4 py-3 bg-emerald-50 hover:bg-emerald-100 focus:outline-none transition-colors"
-                        onclick="toggleSection('menu-list-aprendizaje', this)">
+                        onclick="toggleSection('menu-list-aprendizaje', this)"
+                        data-id="aprendizaje">
                     <div class="flex items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600 transition-transform duration-300 transform"
                         viewBox="0 0 20 20" fill="currentColor">
@@ -64,11 +66,11 @@
                 </button>
                 <ul id="menu-list-aprendizaje"
                     class="accordion-panel overflow-hidden max-h-0 opacity-0 pointer-events-none transition-all duration-300 ease-in-out space-y-2 pl-2">
-                    <li><a href="{% url 'courses' %}"
+                    <li><a href="{% url 'educacion_financiera:courses' %}"
                         class="block px-2 py-1 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors">📘 Cursos</a></li>
-                    <li><a href="{% url 'tips' %}"
+                    <li><a href="{% url 'educacion_financiera:tips' %}"
                         class="block px-2 py-1 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors">💡 Consejos Financieros</a></li>
-                    <li><a href="{% url 'calculators' %}"
+                    <li><a href="{% url 'educacion_financiera:calculators' %}"
                         class="block px-2 py-1 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors">🧮 Calculadoras</a></li>
                 </ul>
                 </div>
@@ -76,7 +78,8 @@
                 <!-- Cuenta -->
                 <div class="border border-gray-200 rounded-lg overflow-hidden transition-shadow hover:shadow-lg">
                 <button class="accordion-header w-full flex justify-between items-center px-4 py-3 bg-emerald-50 hover:bg-emerald-100 focus:outline-none transition-colors"
-                        onclick="toggleSection('menu-list-cuenta', this)">
+                        onclick="toggleSection('menu-list-cuenta', this)"
+                        data-id="cuenta">
                     <div class="flex items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600 transition-transform duration-300 transform"
                         viewBox="0 0 20 20" fill="currentColor">
@@ -89,14 +92,14 @@
                 </button>
                 <ul id="menu-list-cuenta"
                     class="accordion-panel overflow-hidden max-h-0 opacity-0 pointer-events-none transition-all duration-300 ease-in-out space-y-2 pl-2">
-                    <li><a href="{% url 'profile' %}"
+                    <li><a href="{% url 'cuentas:perfil' %}"
                         class="block px-2 py-1 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors">👤 Perfil</a></li>
-                    <li><a href="{% url 'settings' %}"
+                    <li><a href="{% url 'alertas_notificaciones:configuraciones' %}"
                         class="block px-2 py-1 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors">⚙️ Configuración</a></li>
                     <li><a href="#" class="block px-2 py-1 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors">📈 Subcuentas</a></li>
-                    <li><a href="{% url 'reports' %}"
+                    <li><a href="{% url 'analisis_reportes:reports' %}"
                         class="block px-2 py-1 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors">📄 Informes</a></li>
-                    <li><a href="{% url 'configuraciones' %}"
+                    <li><a href="{% url 'alertas_notificaciones:notifications' %}"
                         class="block px-2 py-1 rounded hover:bg-blue-50 hover:text-blue-600 transition-colors">🔔 Notificaciones</a></li>
                     <li>
                         <button type="button"
@@ -155,14 +158,26 @@
                     target.style.opacity = '0';
                     target.style.pointerEvents = 'none';
                     icon.classList.remove('rotate-180');
+                    localStorage.removeItem('accordionActive');
                     } else {
                     target.classList.add('expanded');
                     target.style.maxHeight = target.scrollHeight + 'px';
                     target.style.opacity = '1';
                     target.style.pointerEvents = 'auto';
                     icon.classList.add('rotate-180');
+                    localStorage.setItem('accordionActive', header.getAttribute('data-id'));
                     }
                 }
+
+                document.addEventListener('DOMContentLoaded', () => {
+                const activeId = localStorage.getItem('accordionActive');
+                if (activeId) {
+                    const header = document.querySelector(`.accordion-header[data-id="${activeId}"]`);
+                    if (header) {
+                    header.click();  // Simula el clic para abrir el acordeón
+                    }
+                }
+                });
             </script>
         </aside>
         <!-- Main Content -->

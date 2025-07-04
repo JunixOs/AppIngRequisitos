@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate , login
 from django.core.mail import send_mail
 from django.conf import settings
 
+
 from django.shortcuts import redirect
 
 from cuentas.models import Moneda, Cuenta
@@ -15,6 +16,14 @@ def Generar_Pin():
     return str(random.randint(100000, 999999))  # 6 dígitos
 
 def Login(request):
+    menssage_change_key = request.GET.get('message_change_key')  # se captura el mensaje
+    success_message = request.GET.get('success_message')
+    if(menssage_change_key or success_message):
+        return render(request, 'usuarios/login.html', {
+            'message_change_key': menssage_change_key,
+            'success_message': success_message,
+        })
+    
     if request.method == "POST":
         email = request.POST.get("email")
         password = request.POST.get("password")
@@ -51,11 +60,11 @@ def Register(request):
         correo = request.POST.get('correo')
         contrasena = request.POST.get('contrasena')
         telefono = request.POST.get('telefono')
-        pin_acceso_rapido = request.POST.get("pin_acceso_rapido")
+        pin_acceso_rapido = "".join(request.POST.get(f"pin_acceso_rapido_{i}") for i in range(1 , 7))
         imagen_perfil = request.FILES.get('imagen_perfil')
 
         id_moneda_seleccionada = request.POST.get('id_moneda')
-        print(id_moneda_seleccionada)
+
         try:
             moneda_obj = Moneda.objects.get(id=id_moneda_seleccionada)
         except Moneda.DoesNotExist:
@@ -83,11 +92,7 @@ def Register(request):
         else:
             imagen_b64 = None
 
-        if Usuario.objects.filter(correo=correo).exists():
-            error = "El correo ya está registrado."
-            return render(request, "usuarios/register.html", {"error": error, 'monedas': monedas})
-
-        request.session['registro_temp'] = {
+        registro_temp = {
             'documento_identidad': documento_identidad,
             'nombres': nombres,
             'apellido_paterno': apellido_paterno,
@@ -101,7 +106,18 @@ def Register(request):
             'descripcion': descripcion,
             'imagen_perfil': imagen_b64,
             'pin_acceso_rapido': pin_acceso_rapido,
+            'monedas': monedas,
         }
+
+        if Usuario.objects.filter(correo=correo).exists():
+            registro_temp["error"] = "El correo ya está registrado."
+            return render(request , "usuarios/register.html" , registro_temp)
+        
+        if len(pin_acceso_rapido) < 6:
+            registro_temp["error"] = "El pin debe tener 6 digitos."
+            return render(request , "usuarios/register.html" , registro_temp)
+
+        request.session['registro_temp'] = registro_temp
 
         return redirect('usuarios:pagina_verificar_correo')
 
@@ -184,6 +200,10 @@ def Verificacion_Correo(request):
 
 @login_required
 def Acceso_Rapido(request):
+    message = request.GET.get('message_change_key')
+    if(message):
+        return render(request , 'usuarios/acceso_rapido.html' , {'message_change_key': message})
+    
     user = request.user
     if(not user.is_authenticated):
         return redirect('usuarios:login')
@@ -204,9 +224,6 @@ def Acceso_Rapido(request):
             error_message = "Usuario no encontrado."
             return render(request, 'usuarios/acceso_rapido.html', {'error_message': error_message})
 
-        print(pin_input)
-        print(usuario.pin_acceso_rapido)
-
         if str(usuario.pin_acceso_rapido).zfill(6) == pin_input:
             request.session['pin_acceso_rapido_validado'] = True
 
@@ -217,5 +234,71 @@ def Acceso_Rapido(request):
 
     return render(request , 'usuarios/acceso_rapido.html')
 
-def Reestablecer_Contraseña(request):
-    pass
+def Reestablecer_Contraseña_O_Pin(request):
+    accion = request.GET.get('accion')
+
+    context = {
+        'mostrar_pin': False,
+        'mostrar_final': False,
+        'correo': '',
+        'error': '',
+        'accion': accion,
+    }
+
+    if(request.method == "POST"):
+        email = request.POST.get('email')
+
+        # Paso 1: Enviar código
+        if 'email' in request.POST and not request.POST.get('pin0'):
+            if '@' in email:
+                pin = Generar_Pin()
+                request.session['pin'] = pin
+                request.session['email'] = email
+                request.session['accion'] = accion
+
+                send_mail(
+                    subject='Tu codigo de verificacion - FinGest',
+                    message=f'Tu código de verifiacion es: {pin}',        
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=[email],
+                    fail_silently=False,
+                )
+
+                context['mostrar_pin'] = True
+                context['correo'] = email
+            else:
+                context['error'] = "Correo inválido."
+
+        # Paso 2: Verificar PIN
+        elif all([request.POST.get(f'pin{i}') for i in range(6)]):
+            pin_ingresado = ''.join([request.POST.get(f'pin{i}') for i in range(6)])
+            if pin_ingresado == request.session.get('pin'):
+                context['mostrar_final'] = True
+                context['mostrar_pin'] = False
+                context['accion'] = request.session.get('accion')
+                context['correo'] = request.session.get('email')
+            else:
+                context['mostrar_pin'] = True
+                context['error'] = "PIN incorrecto, intente nuevamente."
+                context['correo'] = request.session.get('email')
+
+        # Paso 3: Formulario final (aquí solo mostramos, no procesamos)
+        elif 'nuevo_codigo' in request.POST or 'nuevo_codigo_1' in request.POST:
+            user = Usuario.objects.filter(correo=request.session.get('email')).first()
+            if(request.session.get('accion') == "cambiar_contraseña"):
+                user.set_password(request.POST.get('nuevo_codigo'))
+            elif(request.session.get('accion') == "cambiar_pin"):
+                pin_nuevo = ''.join(request.POST.get(f'nuevo_codigo_{i}') for i in range(6))
+                user.pin_acceso_rapido = pin_nuevo
+
+            user.save()
+            accion = request.session.get('accion')
+            for key in ['pin', 'email', 'accion']:
+                request.session.pop(key, None)
+
+            if(accion == "cambiar_pin"):
+                return redirect('/usuarios/acceso_rapido/?message_change_key=Los+cambios+se+realizaron+con+exito')
+
+            return redirect('/usuarios/login/?message_change_key=Los+cambios+se+realizaron+con+exito') # <- se envia el mensaje
+    
+    return render(request, 'usuarios/verificar_identidad.html', context)

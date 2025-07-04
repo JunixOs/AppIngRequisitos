@@ -1,15 +1,47 @@
 {% extends "core/base_template.html" %}
-{% block title %}Perfil | BuilderQuantum{% endblock %}
+{% block title %}Perfil | FinGest{% endblock %}
 
 {% block content %}
 <h2 class="text-2xl font-bold mb-1">Perfil</h2>
 <p class="text-sm text-gray-500 mb-6">Gestiona tu información personal y preferencias</p>
 
+<style>
+  .custom-input {
+    @apply w-full p-2 rounded border transition duration-150 ease-in-out backdrop-blur-sm bg-white/60 focus:outline-none;
+  }
+
+  .input-valid {
+    border-color: green;
+  }
+
+  .input-invalid {
+    border-color: red;
+  }
+
+  .input-default {
+    border-color: #d1d5db; /* gray-300 */
+  }
+
+  /* Quita el shadow del focus en navegadores */
+  input:focus {
+    box-shadow: none;
+  }
+</style>
+
 <div class="grid md:grid-cols-3 gap-6">
   <!-- Panel izquierdo -->
   <div class="bg-white p-4 rounded shadow col-span-1 text-center">
     <div class="w-24 h-24 mx-auto rounded-full bg-gray-200 mb-3 flex items-center justify-center">
-      <img class="w-20 h-20 rounded-full object-cover shadow-md border-2 border-green-400" src="data:image/{{ formato_imagen }};base64,{{ imagen_perfil }}" alt="">
+      {% if hay_imagen_perfil %}
+        <img class="w-20 h-20 rounded-full object-cover shadow-md border-2 border-green-400" src="data:image/{{ formato_imagen }};base64,{{ imagen_perfil }}" alt="">
+      {% else %}
+        <img class="w-20 h-20 rounded-full object-cover shadow-md border-2 border-gray-300"
+            src="data:image/svg+xml;utf8,
+            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' fill='%239ca3af'>
+              <circle cx='256' cy='160' r='128'/>
+              <path d='M256 304c-88.4 0-160 71.6-160 160v16h320v-16c0-88.4-71.6-160-160-160z'/>
+            </svg>" alt="Avatar por defecto">      
+      {% endif %}
     </div>
     <h3 class="font-semibold">{{ usuario.nombres }} {{ usuario.apellido_paterno }} {{ usuario.apellido_materno }}</h3>
     <p class="text-sm text-gray-500 mb-3">{{ usuario.correo }}</p>
@@ -17,38 +49,63 @@
     <div class="w-full bg-gray-200 h-2 rounded my-2">
       <div class="bg-blue-500 h-2 rounded" style="width: 40%;"></div>
     </div>
-    <button class="mt-3 px-4 py-2 bg-gray-100 rounded text-sm" onclick="document.getElementById('ventana_actualizar_foto_perfil').showModal()">Cambiar foto</button>
+    <button class="mt-3 px-4 py-2 bg-gray-100 rounded text-sm hover:bg-gray-200 transition duration-200"
+        onclick="abrirModalFotoPerfil()">
+        Cambiar foto
+    </button>
   </div>
 
-  <dialog class="rounded p-4 shadow-lg" id="ventana_actualizar_foto_perfil">
-    <form method="dialog" enctype="multipart/form-data" class="flex flex-col items-center">
-      <h2 class="text-lg font-semibold mb-2">Actualizar foto de perfil</h2>
+  <div id="ventana_actualizar_foto_perfil"
+      class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 opacity-0 pointer-events-none transition-opacity duration-300"
+      onclick="cerrarModalFotoPerfil(event)">
+    <div class="bg-white rounded-lg p-6 w-full max-w-md transform scale-95 opacity-0 transition-all duration-300"
+        id="modal_contenido_foto">
+      <h2 class="text-xl font-semibold mb-4 text-center">Actualizar foto de perfil</h2>
       
-      <input type="file" name="foto_perfil" accept="image/*" class="mb-4" required>
-      
-      <div class="flex justify-between w-full mt-2">
-        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Subir</button>
-        <button type="button" onclick="document.getElementById('ventana_actualizar_foto_perfil').close()" class="ml-2 bg-gray-300 px-4 py-2 rounded">
-          Cancelar
-        </button>
-      </div>
-    </form>
-  </dialog>
+      <form method="post" enctype="multipart/form-data" class="flex flex-col items-center gap-3"
+            action="{% url 'cuentas:actualizar_imagen_perfil' %}">
+        {% csrf_token %}
+        
+        <input type="file" name="foto_perfil" accept="image/png,image/jpeg,image/jpg,image/webp,image/gif"
+              class="file-input border border-gray-300 rounded px-3 py-2 w-full transition duration-200 focus:ring-2 focus:ring-blue-400"
+              required>
 
+        <div class="flex justify-between w-full mt-4 space-x-2">
+          <button type="submit"
+                  class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200 transform hover:scale-105">
+            Subir
+          </button>
+          <button type="button" onclick="cerrarModalFotoPerfil()"
+                  class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400 transition duration-200 transform hover:scale-105">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
   <!-- Panel derecho -->
   <div class="col-span-2">
     <!-- Tabs -->
     <div class="flex space-x-4 mb-4 text-sm font-medium">
-      <a href="{% url 'profile' %}?tab=general" class="px-4 py-2 rounded {% if tab == 'general' %}bg-blue-100 text-blue-600{% endif %}">General</a>
-      <a href="{% url 'profile' %}?tab=security" class="px-4 py-2 rounded {% if tab == 'security' %}bg-blue-100 text-blue-600{% endif %}">Seguridad</a>
-      <a href="{% url 'profile' %}?tab=notifications" class="px-4 py-2 rounded {% if tab == 'notifications' %}bg-blue-100 text-blue-600{% endif %}">Notificaciones</a>
+      <a href="{% url 'cuentas:perfil' %}?tab=general" class="px-4 py-2 rounded {% if tab == 'general' %}bg-blue-100 text-blue-600{% endif %}">General</a>
+      <a href="{% url 'cuentas:perfil' %}?tab=security" class="px-4 py-2 rounded {% if tab == 'security' %}bg-blue-100 text-blue-600{% endif %}">Seguridad</a>
+      <a href="{% url 'cuentas:perfil' %}?tab=notifications" class="px-4 py-2 rounded {% if tab == 'notifications' %}bg-blue-100 text-blue-600{% endif %}">Notificaciones</a>
     </div>
 
     {% if tab == "general" %}
     <!-- General -->
     <div class="bg-white p-4 rounded shadow">
       <h3 class="font-semibold mb-3 text-center">Información General</h3>
-      <form method="post" enctype="multipart/form-data">
+      {% if error_message %}
+        <div class="bg-red-100 border border-red-300 text-red-700 px-4 py-2 rounded text-sm shadow-sm">
+          <i class="fas fa-exclamation-circle mr-2"></i>{{ error_message }}
+        </div>
+      {% elif success_message %}
+        <div class="bg-green-100 border border-green-300 text-green-700 px-4 py-2 rounded text-sm shadow-sm">
+          <i class="fas fa-check-circle mr-2"></i>{{ success_message }}
+        </div>
+      {% endif %}
+      <form method="post" enctype="multipart/form-data" action="{% url 'cuentas:modificar_perfil' %}">
         {% csrf_token %}
         <div class="grid grid-cols-2 gap-4">
           <label for="nombres">Nombres:</label><input class="p-2 border rounded" name="nombres" placeholder="Nombres" value="{{ usuario.nombres }}" />
@@ -67,14 +124,76 @@
     <!-- Seguridad -->
     <div class="bg-white p-4 rounded shadow">
       <h3 class="font-semibold mb-3">Seguridad</h3>
-      <form>
-        <div class="grid gap-4">
-          <input class="p-2 border rounded" name="actual_password" placeholder="Contraseña actual" type="password" />
-          <input class="p-2 border rounded" name="new_password" placeholder="Nueva contraseña" type="password" />
-          <input class="p-2 border rounded" name="confirm_password" placeholder="Confirmar nueva contraseña" type="password" />
+      {% if error_message %}
+        <div class="bg-red-100 border border-red-300 text-red-700 px-4 py-2 rounded text-sm shadow-sm">
+          <i class="fas fa-exclamation-circle mr-2"></i>{{ error_message }}
         </div>
-        <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">Actualizar contraseña</button>
+      {% elif success_message %}
+        <div class="bg-green-100 border border-green-300 text-green-700 px-4 py-2 rounded text-sm shadow-sm">
+          <i class="fas fa-check-circle mr-2"></i>{{ success_message }}
+        </div>
+      {% endif %}
+      <form id="change_password_Form" enctype="multipart/form-data" method="post" action="{% url 'cuentas:modificar_seguridad_perfil' %}">
+        {% csrf_token %}
+        <div class="relative">
+          <input class="p-2 border rounded w-full pr-10" id="actual_password" name="actual_password" placeholder="Contraseña actual" type="password"/>
+          <button type="button" tabindex="-1"
+            class="absolute inset-y-0 right-2 flex items-center text-gray-500 hover:text-gray-700"
+            onclick="togglePasswordVisibility('actual_password', this)">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="relative">
+          <input class="p-2 border rounded w-full pr-10" id="new_password" name="new_password" placeholder="Nueva contraseña" type="password" oninput="validatePasswords()"/>
+          <button type="button" tabindex="-1"
+            class="absolute inset-y-0 right-2 flex items-center text-gray-500 hover:text-gray-700"
+            onclick="togglePasswordVisibility('new_password', this)">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="relative">
+          <input class="p-2 border rounded w-full pr-10" id="confirm_password" name="confirm_password" placeholder="Confirmar nueva contraseña" type="password" oninput="validatePasswords()"/>
+          <button type="button" tabindex="-1"
+            class="absolute inset-y-0 right-2 flex items-center text-gray-500 hover:text-gray-700"
+            onclick="togglePasswordVisibility('confirm_password', this)">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+          </button>
+        </div>
+        <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded" type="submit">Actualizar contraseña</button>
       </form>
+    </div>
+    <!-- Modal de advertencia para cambio de contraseña -->
+    <div id="modal_confirmar_cambio_contraseña"
+        class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 opacity-0 pointer-events-none transition-opacity duration-300"
+        onclick="cerrarModalConfirmarContraseña(event)">
+      <div class="bg-white rounded-lg p-6 w-full max-w-md transform scale-95 opacity-0 transition-all duration-300"
+          id="contenido_modal_confirmar">
+        <h2 class="text-xl font-semibold mb-4 text-center text-red-600">¿Estás seguro?</h2>
+        <p class="text-sm text-gray-600 text-center mb-4">
+          Cambiar tu contraseña podría cerrar tu sesión en otros dispositivos. ¿Quieres continuar?
+        </p>
+        <div class="flex justify-center space-x-4">
+          <button onclick="enviarCambioContraseña()" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Sí, cambiar</button>
+          <button onclick="cerrarModalConfirmarContraseña()" class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400">Cancelar</button>
+        </div>
+      </div>
     </div>
 
     {% elif tab == "notifications" %}
@@ -93,4 +212,142 @@
     {% endif %}
   </div>
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const formnew_password = document.getElementById('change_password_Form');
+      const newPassword = document.getElementById('new_password');
+      const confirmPassword = document.getElementById('confirm_password');
+      const errorMessage = document.getElementById('error-message');
+      const toggleBtn = document.getElementById('togglePasswords');
+      const passwordFields = [document.getElementById('actual_password'), newPassword, confirmPassword];
+
+      if (formnew_password) {
+        formnew_password.addEventListener("submit", function (event) {
+          const newPass = document.getElementById("new_password");
+          const confirmPass = document.getElementById("confirm_password");
+    
+          if (newPass.value !== confirmPass.value || !newPass.value || !confirmPass.value || !document.getElementById('actual_password').value) {
+            event.preventDefault(); // 🚫 Detiene el envío del formulario
+            validatePasswords(); // 🔁 Para mostrar visualmente los errores si no están actualizados
+            alert("Las contraseñas no coinciden o están vacías.");
+          }
+        });
+      }
+    });
+
+
+    // Validar que las contraseñas coincidan antes de enviar
+    function validatePasswords() {
+      const newPass = document.getElementById("new_password");
+      const confirmPass = document.getElementById("confirm_password");
+
+      // Reset classes
+      newPass.classList.remove("input-valid", "input-invalid", "input-default");
+      confirmPass.classList.remove("input-valid", "input-invalid", "input-default");
+
+      // Lógica visual
+      if (!newPass.value && !confirmPass.value) {
+        newPass.classList.add("input-default");
+        confirmPass.classList.add("input-default");
+      } else if (!newPass.value || !confirmPass.value) {
+        newPass.classList.add("input-default");
+        confirmPass.classList.add("input-default");
+      } else if (newPass.value === confirmPass.value) {
+        newPass.classList.add("input-valid");
+        confirmPass.classList.add("input-valid");
+      } else {
+        newPass.classList.add("input-invalid");
+        confirmPass.classList.add("input-invalid");
+      }
+    }
+
+    // Mostrar/ocultar contraseñas
+    function togglePasswordVisibility(inputId, btn) {
+      const input = document.getElementById(inputId);
+      const svg = btn.querySelector('svg');
+
+      if (input.type === "password") {
+        input.type = "text";
+        // Rotar el icono ojo para indicar visible (animación simple)
+        svg.style.transform = "rotate(180deg)";
+        svg.style.stroke = "#3B82F6"; // azul para indicar activo
+      } else {
+        input.type = "password";
+        svg.style.transform = "rotate(0deg)";
+        svg.style.stroke = "#6B7280"; // gris para indicar inactivo
+      }
+    }
+    function abrirModalFotoPerfil() {
+      const modal = document.getElementById('ventana_actualizar_foto_perfil');
+      const content = document.getElementById('modal_contenido_foto');
+      
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      modal.classList.add('opacity-100');
+      content.classList.remove('scale-95', 'opacity-0');
+      content.classList.add('scale-100', 'opacity-100');
+    }
+
+    function cerrarModalFotoPerfil(event) {
+      if (event && event.target !== event.currentTarget) return; // solo cerrar si clic fuera del modal
+      const modal = document.getElementById('ventana_actualizar_foto_perfil');
+      const content = document.getElementById('modal_contenido_foto');
+
+      modal.classList.remove('opacity-100');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      content.classList.remove('scale-100', 'opacity-100');
+      content.classList.add('scale-95', 'opacity-0');
+    }
+
+    let formCambioPassword;
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const formCambioPasswordEl = document.getElementById('change_password_Form');
+
+      if (formCambioPasswordEl) {
+        formCambioPasswordEl.addEventListener('submit', function (event) {
+          event.preventDefault(); // Evita el envío inmediato
+          formCambioPassword = this; // Guarda el formulario para después
+          validatePasswords();
+
+          const actual = document.getElementById("actual_password").value;
+          const nueva = document.getElementById("new_password").value;
+          const confirmar = document.getElementById("confirm_password").value;
+
+          if (!actual || !nueva || !confirmar || nueva !== confirmar) {
+            alert("Las contraseñas no coinciden o están vacías.");
+            return;
+          }
+
+          abrirModalConfirmarContraseña();
+        });
+      }
+    });
+    // Mostrar modal
+    function abrirModalConfirmarContraseña() {
+      const modal = document.getElementById('modal_confirmar_cambio_contraseña');
+      const content = document.getElementById('contenido_modal_confirmar');
+
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      modal.classList.add('opacity-100');
+      content.classList.remove('scale-95', 'opacity-0');
+      content.classList.add('scale-100', 'opacity-100');
+    }
+
+    // Ocultar modal
+    function cerrarModalConfirmarContraseña(event) {
+      if (event && event.target !== event.currentTarget) return;
+      const modal = document.getElementById('modal_confirmar_cambio_contraseña');
+      const content = document.getElementById('contenido_modal_confirmar');
+
+      modal.classList.remove('opacity-100');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      content.classList.remove('scale-100', 'opacity-100');
+      content.classList.add('scale-95', 'opacity-0');
+    }
+
+    // Enviar formulario desde el modal
+    function enviarCambioContraseña() {
+      formCambioPassword.submit();
+    }
+</script>
 {% endblock %}

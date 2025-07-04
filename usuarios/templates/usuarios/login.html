@@ -16,10 +16,14 @@
     <div id="modal-login" class="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
       <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md relative animate__animated animate__fadeInDown">
         <button onclick="window.location.href='/'" class="absolute top-3 right-3 text-gray-400 hover:text-red-500 text-2xl">&times;</button>
-        <h2 class="text-2xl font-bold text-blue-700 mb-6 text-center">Iniciar Sesión</h2>        {% if message_error %}
+        <h2 class="text-2xl font-bold text-blue-700 mb-6 text-center">Iniciar Sesión</h2>
+        {% if message_error %}
           <div class="mb-4 text-red-600 text-center font-semibold bg-red-100 rounded p-2">{{ message_error }}</div>
         {% endif %}
-        <form class="space-y-6" method="post">
+        {% if message_change_key %}
+          <div class="mb-4 text-green-700 text-center font-semibold bg-green-100 border border-green-300 rounded p-2">{{ message_change_key }}</div>
+        {% endif %}
+        <form class="space-y-6" method="post" action="{% url 'usuarios:login' %}">
           {% csrf_token %}
           <div>
             <label for="email" class="block text-sm font-medium mb-1">Correo electrónico</label>
@@ -58,7 +62,7 @@
           ¿No tienes una cuenta? <a href="{% url 'usuarios:register' %}" class="text-blue-600 hover:underline">Regístrate</a>
         </div>
         <div class="mt-6 text-center text-sm text-gray-500">
-          <a href="{% url 'usuarios:register' %}" class="text-blue-600 hover:underline">¿Olvidaste tu contraseña?</a>
+          <a href="{% url 'usuarios:verificar_identidad' %}?accion=cambiar_contraseña" class="text-blue-600 hover:underline">¿Olvidaste tu contraseña?</a>
         </div>
       </div>
     </div>    <!-- Scripts -->

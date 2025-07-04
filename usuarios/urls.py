@@ -8,5 +8,6 @@ urlpatterns = [
     path('register/', views.Register, name='register'),
     path('pagina_verificar_correo/' , views.Pagina_Verificar_Correo , name='pagina_verificar_correo'),
     path('verificacion_correo/' , views.Verificacion_Correo , name='verificacion_correo'),
-    path('acceso_rapido/' , views.Acceso_Rapido , name='acceso_rapido')
+    path('acceso_rapido/' , views.Acceso_Rapido , name='acceso_rapido'),
+    path('verificar_identidad/' , views.Reestablecer_Contraseña_O_Pin , name='verificar_identidad'),
 ]

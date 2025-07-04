@@ -1,85 +1,94 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>Validar correo | FinGest</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .scrollbar-custom::-webkit-scrollbar {
-        width: 8px;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Acceso rápido | FinGest</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
-        .scrollbar-custom::-webkit-scrollbar-thumb {
-        background-color: #a3e635;
-        border-radius: 4px;
-        }
+  <style>
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-tl from-indigo-100 via-white to-green-100 min-h-screen flex items-center justify-center relative overflow-hidden font-sans">
 
-        .scrollbar-custom::-webkit-scrollbar-track {
-        background-color: #f3f4f6;
-        }
+  <!-- Decoración -->
+  <div class="absolute inset-0 pointer-events-none z-0">
+    <div class="absolute top-0 left-0 w-64 h-64 bg-green-300 opacity-20 rounded-full blur-3xl animate-ping duration-[4s]"></div>
+    <div class="absolute bottom-10 right-10 w-48 h-48 bg-indigo-300 opacity-20 rounded-full blur-2xl animate-pulse delay-1000"></div>
+  </div>
 
-        input[type="number"]::-webkit-inner-spin-button,
-        input[type="number"]::-webkit-outer-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-        }
-    </style>
-    </head>
-    <body class="bg-gradient-to-br from-blue-100 via-white to-indigo-100 min-h-screen flex items-center justify-center relative overflow-hidden">
-    <!-- Fondo decorativo -->
-    <div class="absolute inset-0 pointer-events-none z-0">
-        <div class="absolute -top-32 -left-32 w-96 h-96 bg-blue-400 opacity-20 rounded-full blur-3xl animate-pulse"></div>
-        <div class="absolute bottom-0 right-0 w-80 h-80 bg-indigo-400 opacity-20 rounded-full blur-2xl animate-pulse delay-200"></div>
+  <!-- Modal de acceso rápido -->
+  <div class="relative bg-white rounded-3xl shadow-2xl px-10 py-12 max-w-xl w-full z-10 animate__animated animate__fadeInUp animate__faster">
+    <button onclick="window.location.href='/'" class="absolute top-4 right-4 text-gray-400 hover:text-red-500 text-3xl font-bold transition duration-200">&times;</button>
+
+    <!-- Ícono destacado -->
+    <div class="text-center mb-6">
+      <div class="text-indigo-500 text-5xl mb-2 animate__animated animate__bounceInDown">
+        <i class="fas fa-lock-open"></i>
+      </div>
+      <h1 class="text-3xl font-extrabold text-indigo-700 mb-1">Acceso Rápido</h1>
+      <p class="text-gray-500 text-sm">Introduce tu PIN de 6 dígitos para entrar rápidamente a FinGest</p>
     </div>
 
-    <!-- Ventana de acceso rápido -->
-    <div id="quick-access-modal" class="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
-    <div class="bg-white rounded-2xl shadow-2xl p-10 w-full max-w-xl relative animate__animated animate__fadeInDown">
-        <button onclick="window.location.href='/'" class="absolute top-4 right-4 text-gray-400 hover:text-red-500 text-3xl font-bold">&times;</button>
-        
-        <h2 class="text-3xl font-bold text-green-700 mb-3 text-center">Acceso Rápido</h2>
-        <p class="text-gray-500 text-md text-center mb-6">Ingrese su PIN de 6 dígitos para continuar</p>
-
-        <form method="post" enctype="multipart/form-data" action="{% url 'usuarios:acceso_rapido' %}" class="space-y-8">
-        {% csrf_token %}
-        {% if error_message %}
-            <div class="bg-red-100 text-red-700 px-4 py-2 rounded text-center text-sm font-medium shadow">
-            {{ error_message }}
-            </div>
-        {% endif %}
-
-        <div class="flex justify-center gap-4">
-            {% for i in "012345" %}
-            <input type="number"
-                    inputmode="numeric"
-                    name="pin{{ forloop.counter0 }}"
-                    maxlength="1"
-                    class="w-16 h-16 text-center text-2xl font-semibold border border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-green-400 transition-all duration-200"
-                    {% if forloop.first %}autofocus{% endif %}
-                    oninput="moveFocus(this, 1)" />
-            {% endfor %}
+    <!-- Formulario -->
+    <form method="post" action="{% url 'usuarios:acceso_rapido' %}" enctype="multipart/form-data" class="space-y-8">
+      {% csrf_token %}
+      {% if error_message %}
+        <div class="bg-red-100 border border-red-300 text-red-700 px-4 py-2 rounded-md text-center text-sm font-medium shadow animate__animated animate__shakeX">
+            <i class="fas fa-exclamation-circle mr-2"></i>{{ error_message }}
         </div>
+      {% elif message_change_key %}
+        <div class="bg-green-100 border border-green-300 text-green-700 px-4 py-2 rounded-md text-center text-sm font-medium shadow animate__animated animate__fadeInDown mb-4">
+            <i class="fas fa-check-circle mr-2"></i>{{ message_change_key }}
+        </div>
+      {% endif %}
 
-        <button type="submit" class="w-full bg-gradient-to-r from-green-500 to-yellow-400 text-white text-lg font-bold py-4 rounded-xl shadow-md hover:scale-105 transition-transform duration-200">
-            Entrar
-        </button>
-        </form>
-    </div>
-    </div>
+      <!-- Campos de PIN -->
+      <div class="flex justify-center gap-3">
+        {% for i in "012345" %}
+        <input type="number"
+               name="pin{{ forloop.counter0 }}"
+               maxlength="1"
+               inputmode="numeric"
+               class="w-14 h-14 md:w-16 md:h-16 text-center text-2xl font-bold tracking-widest text-indigo-700 border border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-indigo-400 shadow-sm transition-all duration-150 hover:shadow-lg"
+               {% if forloop.first %}autofocus{% endif %}
+               autocomplete="off"
+               oninput="moveFocus(this, 1)" />
+        {% endfor %}
+      </div>
 
+      <!-- Botón de entrada -->
+      <button type="submit"
+              class="w-full bg-gradient-to-r from-indigo-500 to-green-400 text-white text-lg font-bold py-4 rounded-xl shadow-md hover:shadow-xl hover:scale-105 transition-transform duration-200">
+        <i class="fas fa-sign-in-alt mr-2"></i> Entrar
+      </button>
 
-    <!-- Script para mover el foco automáticamente -->
-    <script>
-        function moveFocus(input, direction) {
-        const inputs = Array.from(input.parentElement.querySelectorAll('input'));
-        const index = inputs.indexOf(input);
-        if (input.value.length === 1 && direction === 1 && index < inputs.length - 1) {
-            inputs[index + 1].focus();
-        } else if (direction === 0 && input.value.length === 1) {
-            input.blur(); // último input
-        }
-        }
-    </script>
+      <!-- Enlace alternativo -->
+      <p class="text-center text-sm text-gray-400">
+        ¿Olvidaste tu PIN? <a href="{% url 'usuarios:verificar_identidad' %}?accion=cambiar_pin" class="text-indigo-600 hover:underline font-medium">Recuperar acceso</a>
+      </p>
+    </form>
+  </div>
+
+  <!-- Script -->
+  <script>
+    function moveFocus(input, direction) {
+      const inputs = Array.from(input.parentElement.querySelectorAll('input'));
+      const index = inputs.indexOf(input);
+      if (input.value.length === 1 && direction === 1 && index < inputs.length - 1) {
+        inputs[index + 1].focus();
+      } else if (direction === 0 && input.value.length === 1) {
+        input.blur();
+      }
+    }
+  </script>
 </body>
 </html>
+
