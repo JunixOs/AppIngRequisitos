@@ -19,17 +19,31 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     {% block extra_css %}{% endblock %}
 </head>
-<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+<style>
+    .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+    background: #1f2937; /* gris oscuro */
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #d1d5db; /* gris claro */
+    border-radius: 10px;
+    }
+</style>
+<body class="!bg-gray-100 dark:!bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
     <div class="min-h-screen flex">
         <!-- Mobile Header -->
-        <div class="md:hidden p-4 bg-white dark:bg-gray-800 shadow flex justify-between items-center fixed top-0 left-0 right-0 z-50 transition-colors duration-300">
+        <div class="md:hidden p-4 !bg-white dark:!bg-gray-800 shadow flex justify-between items-center fixed top-0 left-0 right-0 z-50 transition-colors duration-300">
             <button id="toggleSidebar" class="text-green-600 dark:text-green-400 text-2xl focus:outline-none">
                 ☰
             </button>
             <a class="font-semibold text-lg text-gray-900 dark:text-white" href="{% url 'core:dashboard' %}">FinGest</a>
         </div>
         <div id="sidebarOverlay" class="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm transition-all duration-300 opacity-0 pointer-events-none z-30 md:hidden"></div>
-        <aside id="side-bar" class="bg-white dark:bg-gray-800 shadow-lg border-r border-gray-200 dark:border-gray-700 w-64 h-screen fixed top-0 left-0 z-40 transform transition-all duration-300 -translate-x-full md:translate-x-0 overflow-y-auto">
+        <aside id="side-bar" class="custom-scrollbar !bg-white dark:!bg-gray-800 shadow-lg border-r border-gray-200 dark:border-gray-700 w-64 h-screen fixed top-0 left-0 z-40 transform transition-all duration-300 -translate-x-full md:translate-x-0 overflow-y-auto">
             <!-- Header del sidebar -->
             <div class="p-6 border-b border-gray-100 dark:border-gray-700">
                 <div class="flex items-center gap-3">

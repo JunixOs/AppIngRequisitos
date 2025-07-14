@@ -14,7 +14,7 @@
     <div class="flex flex-col sm:flex-row w-full sm:w-auto items-stretch sm:items-center gap-3">
       <!-- Dropdown para exportar -->
       <div class="relative">
-        <button id="exportDropdown" class="w-full sm:w-auto bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2">
+        <button id="exportDropdown" class="w-full sm:w-auto !bg-gray-100 hover:!bg-gray-200 dark:!bg-gray-700 dark:hover:!bg-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
           </svg>
@@ -23,7 +23,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
           </svg>
         </button>
-        <div id="exportMenu" class="absolute left-0 sm:right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 z-10 hidden">
+        <div id="exportMenu" class="absolute left-0 sm:right-0 mt-2 w-48 !bg-white dark:!bg-gray-800 rounded-lg shadow-lg border !border-gray-200 dark:!border-gray-700 z-10 hidden">
           <a href="{% url 'analisis_reportes:exportar_pdf' %}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-t-lg">
             <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
@@ -48,7 +48,7 @@
   </div>
 
   <!-- Filtros Mejorados -->
-  <div class="bg-white dark:bg-gray-800 rounded-lg p-4 sm:p-6 border border-gray-200 dark:border-gray-700 mb-6">
+  <div class="!bg-white dark:!bg-gray-800 rounded-lg p-4 sm:p-6 border !border-gray-200 dark:!border-gray-700 mb-6">
     <form method="GET" class="space-y-4">
       <div class="flex flex-col lg:flex-row items-start lg:items-center gap-4">
         <div class="flex items-center gap-2 flex-shrink-0">
@@ -60,7 +60,7 @@
         
         <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full">
           <!-- Período -->
-          <select name="periodo" class="w-full sm:w-48 border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
+          <select name="periodo" class="w-full sm:w-48 border !border-gray-300 dark:!border-gray-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:!bg-gray-700 dark:text-white">
             <option value="mes_actual" {% if periodo_actual == 'mes_actual' %}selected{% endif %}>Este mes</option>
             <option value="ultimo_mes" {% if periodo_actual == 'ultimo_mes' %}selected{% endif %}>Mes pasado</option>
             <option value="trimestre" {% if periodo_actual == 'trimestre' %}selected{% endif %}>Último trimestre</option>
@@ -70,7 +70,7 @@
 
           <!-- Cuentas -->
           {% if cuentas %}
-          <select name="cuenta" class="w-full sm:w-48 border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
+          <select name="cuenta" class="w-full sm:w-48 border !border-gray-300 dark:!border-gray-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:!bg-gray-700 dark:text-white">
             <option value="">Todas las cuentas</option>
             {% for cuenta in cuentas %}
             <option value="{{ cuenta.id }}">{{ cuenta.nombre }}</option>
@@ -92,12 +92,12 @@
         <div>
           <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Fecha inicio:</label>
           <input type="date" name="fecha_inicio" value="{{ fecha_inicio }}" 
-                 class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
+                 class="w-full border !border-gray-300 dark:!border-gray-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:!bg-gray-700 dark:text-white">
         </div>
         <div>
           <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Fecha fin:</label>
           <input type="date" name="fecha_fin" value="{{ fecha_fin }}" 
-                 class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
+                 class="w-full border !border-gray-300 dark:!border-gray-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:!bg-gray-700 dark:text-white">
         </div>
       </div>
     </form>
@@ -106,14 +106,14 @@
   <!-- Métricas principales -->
   <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
     <!-- Balance total -->
-    <div class="bg-white dark:bg-gray-800 rounded-lg p-4 sm:p-6 border border-gray-200 dark:border-gray-700">
+    <div class="!bg-white dark:!bg-gray-800 rounded-lg p-4 sm:p-6 border !border-gray-200 dark:!border-gray-700">
       <div class="flex items-center justify-between">
         <div class="min-w-0 flex-1">
           <p class="text-sm font-medium text-gray-600 dark:text-gray-400 truncate">Balance Total</p>
           <p class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white break-words">${{ stats.balance_total|floatformat:0 }}</p>
           <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Todas las cuentas</p>
         </div>
-        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center flex-shrink-0 ml-3">
+        <div class="w-10 h-10 sm:w-12 sm:h-12 !bg-blue-100 dark:!bg-blue-900/30 rounded-lg flex items-center justify-center flex-shrink-0 ml-3">
           <svg class="w-5 h-5 sm:w-6 sm:h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/>
           </svg>
@@ -122,14 +122,14 @@
     </div>
 
     <!-- Ingresos del período -->
-    <div class="bg-white dark:bg-gray-800 rounded-lg p-4 sm:p-6 border border-gray-200 dark:border-gray-700">
+    <div class="!bg-white dark:!bg-gray-800 rounded-lg p-4 sm:p-6 border !border-gray-200 dark:!border-gray-700">
       <div class="flex items-center justify-between">
         <div class="min-w-0 flex-1">
           <p class="text-sm font-medium text-gray-600 dark:text-gray-400 truncate">Ingresos</p>
           <p class="text-xl sm:text-2xl font-bold text-green-600 dark:text-green-400 break-words">${{ stats.total_ingresos|floatformat:0 }}</p>
           <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Período seleccionado</p>
         </div>
-        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center flex-shrink-0 ml-3">
+        <div class="w-10 h-10 sm:w-12 sm:h-12 !bg-green-100 dark:!bg-green-900/30 rounded-lg flex items-center justify-center flex-shrink-0 ml-3">
           <svg class="w-5 h-5 sm:w-6 sm:h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12"/>
           </svg>
@@ -138,14 +138,14 @@
     </div>
 
     <!-- Gastos del período -->
-    <div class="bg-white dark:bg-gray-800 rounded-lg p-4 sm:p-6 border border-gray-200 dark:border-gray-700">
+    <div class="!bg-white dark:!bg-gray-800 rounded-lg p-4 sm:p-6 border !border-gray-200 dark:!border-gray-700">
       <div class="flex items-center justify-between">
         <div class="min-w-0 flex-1">
           <p class="text-sm font-medium text-gray-600 dark:text-gray-400 truncate">Gastos</p>
           <p class="text-xl sm:text-2xl font-bold text-red-600 dark:text-red-400 break-words">${{ stats.total_egresos|floatformat:0 }}</p>
           <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Período seleccionado</p>
         </div>
-        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-red-100 dark:bg-red-900/30 rounded-lg flex items-center justify-center flex-shrink-0 ml-3">
+        <div class="w-10 h-10 sm:w-12 sm:h-12 !bg-red-100 dark:!bg-red-900/30 rounded-lg flex items-center justify-center flex-shrink-0 ml-3">
           <svg class="w-5 h-5 sm:w-6 sm:h-6 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 13l-5 5m0 0l-5-5m5 5V6"/>
           </svg>
@@ -154,7 +154,7 @@
     </div>
 
     <!-- Ahorro neto -->
-    <div class="bg-white dark:bg-gray-800 rounded-lg p-4 sm:p-6 border border-gray-200 dark:border-gray-700">
+    <div class="!bg-white dark:!bg-gray-800 rounded-lg p-4 sm:p-6 border !border-gray-200 dark:!border-gray-700">
       <div class="flex items-center justify-between">
         <div class="min-w-0 flex-1">
           <p class="text-sm font-medium text-gray-600 dark:text-gray-400 truncate">Ahorro Neto</p>
@@ -163,7 +163,7 @@
           </p>
           <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Ingresos - Gastos</p>
         </div>
-        <div class="w-10 h-10 sm:w-12 sm:h-12 {% if stats.ahorro_neto >= 0 %}bg-green-100 dark:bg-green-900/30{% else %}bg-red-100 dark:bg-red-900/30{% endif %} rounded-lg flex items-center justify-center flex-shrink-0 ml-3">
+        <div class="w-10 h-10 sm:w-12 sm:h-12 {% if stats.ahorro_neto >= 0 %}!bg-green-100 dark:!bg-green-900/30{% else %}!bg-red-100 dark:!bg-red-900/30{% endif %} rounded-lg flex items-center justify-center flex-shrink-0 ml-3">
           <svg class="w-5 h-5 sm:w-6 sm:h-6 {% if stats.ahorro_neto >= 0 %}text-green-600 dark:text-green-400{% else %}text-red-600 dark:text-red-400{% endif %}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
           </svg>
@@ -175,48 +175,48 @@
   <!-- Gráficos y análisis -->
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
     <!-- Gráfico de ingresos vs gastos -->
-    <div class="bg-white dark:bg-gray-800 rounded-lg p-4 sm:p-6 border border-gray-200 dark:border-gray-700">
+    <div class="!bg-white dark:!bg-gray-800 rounded-lg p-4 sm:p-6 border !border-gray-200 dark:!border-gray-700">
       <div class="flex items-center justify-between mb-4">
         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Ingresos vs Gastos</h3>
-        <div class="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center">
+        <div class="w-8 h-8 !bg-blue-100 dark:!bg-blue-900/30 rounded-lg flex items-center justify-center">
           <svg class="w-4 h-4 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
           </svg>
         </div>
       </div>
-      <div class="h-64 sm:h-72 lg:h-80 flex items-center justify-center bg-gray-50 dark:bg-gray-700/50 rounded-lg overflow-hidden">
+      <div class="h-64 sm:h-72 lg:h-80 flex items-center justify-center !bg-gray-50 dark:!bg-gray-700/50 rounded-lg overflow-hidden">
         <canvas id="ingresosGastosChart" class="max-w-full max-h-full"></canvas>
       </div>
     </div>
 
     <!-- Distribución por categorías -->
-    <div class="bg-white dark:bg-gray-800 rounded-lg p-4 sm:p-6 border border-gray-200 dark:border-gray-700">
+    <div class="!bg-white dark:!bg-gray-800 rounded-lg p-4 sm:p-6 border !border-gray-200 dark:!border-gray-700">
       <div class="flex items-center justify-between mb-4">
         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Gastos por Categoría</h3>
-        <div class="w-8 h-8 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center">
+        <div class="w-8 h-8 !bg-purple-100 dark:!bg-purple-900/30 rounded-lg flex items-center justify-center">
           <svg class="w-4 h-4 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/>
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/>
           </svg>
         </div>
       </div>
-      <div class="h-64 sm:h-72 lg:h-80 flex items-center justify-center bg-gray-50 dark:bg-gray-700/50 rounded-lg overflow-hidden">
+      <div class="h-64 sm:h-72 lg:h-80 flex items-center justify-center !bg-gray-50 dark:!bg-gray-700/50 rounded-lg overflow-hidden">
         <canvas id="categoriasChart" class="max-w-full max-h-full"></canvas>
       </div>
     </div>
   </div>
 
   <!-- Flujo mensual -->
-  <div class="bg-white dark:bg-gray-800 rounded-lg p-4 sm:p-6 border border-gray-200 dark:border-gray-700 mb-6">
+  <div class="!bg-white dark:!bg-gray-800 rounded-lg p-4 sm:p-6 border !border-gray-200 dark:!border-gray-700 mb-6">
     <div class="flex items-center justify-between mb-4">
       <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Flujo de Efectivo Mensual</h3>
-      <div class="w-8 h-8 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center">
+      <div class="w-8 h-8 !bg-green-100 dark:!bg-green-900/30 rounded-lg flex items-center justify-center">
         <svg class="w-4 h-4 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
         </svg>
       </div>
     </div>
-    <div class="h-64 sm:h-80 lg:h-96 bg-gray-50 dark:bg-gray-700/50 rounded-lg flex items-center justify-center overflow-hidden">
+    <div class="h-64 sm:h-80 lg:h-96 !bg-gray-50 dark:!bg-gray-700/50 rounded-lg flex items-center justify-center overflow-hidden">
       <canvas id="flujoMensualChart" class="max-w-full max-h-full"></canvas>
     </div>
   </div>
@@ -224,10 +224,10 @@
   <!-- Análisis detallado -->
   <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
     <!-- Top gastos -->
-    <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+    <div class="!bg-white dark:!bg-gray-800 rounded-xl p-6 border !border-gray-200 dark:!border-gray-700">
       <div class="flex items-center justify-between mb-4">
         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Principales Gastos</h3>
-        <div class="w-8 h-8 bg-red-100 dark:bg-red-900/30 rounded-lg flex items-center justify-center">
+        <div class="w-8 h-8 !bg-red-100 dark:!bg-red-900/30 rounded-lg flex items-center justify-center">
           <svg class="w-4 h-4 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 13l-5 5m0 0l-5-5m5 5V6"/>
           </svg>
@@ -236,7 +236,7 @@
       
       <div class="space-y-3">
         {% for gasto in stats.top_gastos|slice:":5" %}
-        <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+        <div class="flex items-center justify-between p-3 !bg-gray-50 dark:!bg-gray-700/50 rounded-lg">
           <div class="min-w-0 flex-1">
             <p class="font-medium text-gray-900 dark:text-white text-sm truncate">{{ gasto.nombre }}</p>
             <p class="text-xs text-gray-500 dark:text-gray-400">{{ gasto.fecha_movimiento|date:"j M" }}</p>
@@ -250,10 +250,10 @@
     </div>
 
     <!-- Análisis de subcuentas -->
-    <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+    <div class="!bg-white dark:!bg-gray-800 rounded-xl p-6 border !border-gray-200 dark:!border-gray-700">
       <div class="flex items-center justify-between mb-4">
         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Estado de Subcuentas</h3>
-        <div class="w-8 h-8 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg flex items-center justify-center">
+        <div class="w-8 h-8 !bg-indigo-100 dark:!bg-indigo-900/30 rounded-lg flex items-center justify-center">
           <svg class="w-4 h-4 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
           </svg>
@@ -279,10 +279,10 @@
     </div>
 
     <!-- Resumen de metas -->
-    <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+    <div class="!bg-white dark:!bg-gray-800 rounded-xl p-6 border !border-gray-200 dark:!border-gray-700">
       <div class="flex items-center justify-between mb-4">
         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Progreso de Metas</h3>
-        <div class="w-8 h-8 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg flex items-center justify-center">
+        <div class="w-8 h-8 !bg-yellow-100 dark:!bg-yellow-900/30 rounded-lg flex items-center justify-center">
           <svg class="w-4 h-4 text-yellow-600 dark:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
           </svg>
@@ -291,12 +291,12 @@
       
       <div class="space-y-3">
         {% for meta in stats.metas_progreso|slice:":3" %}
-        <div class="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+        <div class="p-3 !bg-gray-50 dark:!bg-gray-700/50 rounded-lg">
           <div class="flex items-center justify-between mb-2">
             <p class="font-medium text-gray-900 dark:text-white text-sm truncate">{{ meta.nombre }}</p>
             <p class="text-xs text-gray-500 dark:text-gray-400 flex-shrink-0">{{ meta.porcentaje_progreso|floatformat:1 }}%</p>
           </div>
-          <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
+          <div class="w-full !bg-gray-200 dark:!bg-gray-600 rounded-full h-2">
             <div class="bg-yellow-500 h-2 rounded-full transition-all duration-300" style="width: {{ meta.porcentaje_progreso }}%"></div>
           </div>
           <div class="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">

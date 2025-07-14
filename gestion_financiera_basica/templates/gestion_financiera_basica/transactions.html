@@ -30,7 +30,7 @@
   <!-- Tarjetas de resumen -->
   <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
     <!-- Total de transacciones -->
-    <div class="bg-white dark:bg-gray-800 rounded-xl p-3 sm:p-4 border border-gray-200 dark:border-gray-700">
+    <div class="!bg-white dark:!bg-gray-800 rounded-xl p-3 sm:p-4 border !border-gray-200 dark:!border-gray-700">
       <div class="flex items-center justify-between">
         <div>
           <p class="text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400">Transacciones ({{ nombre_mes }})</p>
@@ -45,7 +45,7 @@
     </div>
 
     <!-- Ingresos del mes -->
-    <div class="bg-white dark:bg-gray-800 rounded-xl p-3 sm:p-4 border border-gray-200 dark:border-gray-700">
+    <div class="!bg-white dark:!bg-gray-800 rounded-xl p-3 sm:p-4 border !border-gray-200 dark:!border-gray-700">
       <div class="flex items-center justify-between">
         <div>
           <p class="text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400">Ingresos del Mes</p>
@@ -60,7 +60,7 @@
     </div>
 
     <!-- Gastos del mes -->
-    <div class="bg-white dark:bg-gray-800 rounded-xl p-3 sm:p-4 border border-gray-200 dark:border-gray-700">
+    <div class="!bg-white dark:!bg-gray-800 rounded-xl p-3 sm:p-4 border !border-gray-200 dark:!border-gray-700">
       <div class="flex items-center justify-between">
         <div>
           <p class="text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400">Gastos del Mes</p>
@@ -75,7 +75,7 @@
     </div>
 
     <!-- Balance del mes -->
-    <div class="bg-white dark:bg-gray-800 rounded-xl p-3 sm:p-4 border border-gray-200 dark:border-gray-700">
+    <div class="!bg-white dark:!bg-gray-800 rounded-xl p-3 sm:p-4 border !border-gray-200 dark:!border-gray-700">
       <div class="flex items-center justify-between">
         <div>
           <p class="text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400">Balance del Mes</p>
@@ -93,7 +93,7 @@
   </div>
 
   <!-- Filtros y Búsqueda optimizados para móvil -->
-  <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 mb-6">
+  <div class="!bg-white dark:!bg-gray-800 rounded-xl border !border-gray-200 dark:!border-gray-700 mb-6">
     <!-- Header compacto -->
     <div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700 lg:hidden">
       <div class="flex items-center gap-2">
@@ -123,17 +123,17 @@
       <div class="px-4 lg:px-6 pb-4">
         <div class="flex flex-col sm:flex-row sm:items-center gap-2 mb-4">
           <span class="text-sm font-medium text-gray-600 dark:text-gray-400 min-w-fit">Tipo:</span>
-          <div class="flex bg-gray-100 dark:bg-gray-700 rounded-lg p-1 w-full sm:w-auto">
+          <div class="flex !bg-gray-100 dark:!bg-gray-700 rounded-lg p-1 w-full sm:w-auto">
             <a href="{% url 'gestion_financiera_basica:transactions' %}{% if search_query %}?search={{ search_query }}{% if sort_by %}&sort={{ sort_by }}{% endif %}{% elif sort_by %}?sort={{ sort_by }}{% endif %}"
-               class="{% if not filter_type or filter_type == 'all' %}bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow-sm{% else %}text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white{% endif %} flex-1 sm:flex-none px-3 py-2 rounded-md text-sm font-medium transition-all text-center">
+               class="{% if not filter_type or filter_type == 'all' %}!bg-white dark:!bg-gray-600 text-gray-900 dark:text-white shadow-sm{% else %}text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white{% endif %} flex-1 sm:flex-none px-3 py-2 rounded-md text-sm font-medium transition-all text-center">
                Todas
             </a>
             <a href="{% url 'gestion_financiera_basica:transactions' %}?filter=income{% if search_query %}&search={{ search_query }}{% endif %}{% if sort_by %}&sort={{ sort_by }}{% endif %}"
-               class="{% if filter_type == 'income' %}bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow-sm{% else %}text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white{% endif %} flex-1 sm:flex-none px-3 py-2 rounded-md text-sm font-medium transition-all text-center">
+               class="{% if filter_type == 'income' %}!bg-white dark:!bg-gray-600 text-gray-900 dark:text-white shadow-sm{% else %}text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white{% endif %} flex-1 sm:flex-none px-3 py-2 rounded-md text-sm font-medium transition-all text-center">
                Ingresos
             </a>
             <a href="{% url 'gestion_financiera_basica:transactions' %}?filter=expenses{% if search_query %}&search={{ search_query }}{% endif %}{% if sort_by %}&sort={{ sort_by }}{% endif %}"
-               class="{% if filter_type == 'expenses' %}bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow-sm{% else %}text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white{% endif %} flex-1 sm:flex-none px-3 py-2 rounded-md text-sm font-medium transition-all text-center">
+               class="{% if filter_type == 'expenses' %}!bg-white dark:!bg-gray-600 text-gray-900 dark:text-white shadow-sm{% else %}text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white{% endif %} flex-1 sm:flex-none px-3 py-2 rounded-md text-sm font-medium transition-all text-center">
                Gastos
             </a>
           </div>
@@ -156,7 +156,7 @@
               </div>
               <input type="text" name="search" value="{{ search_query|default:'' }}" 
                      placeholder="Buscar transacciones..." 
-                     class="block w-full pl-10 pr-3 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400">
+                     class="block w-full pl-10 pr-3 py-2.5 border !border-gray-300 dark:!border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400">
             </div>
           </div>
           
@@ -165,7 +165,7 @@
             <!-- Ordenación -->
             <div class="flex-1 lg:w-44">
               <select name="sort" onchange="this.form.submit()" 
-                      class="block w-full px-3 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:text-white">
+                      class="block w-full px-3 py-2.5 border !border-gray-300 dark:!border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:text-white">
                 <option value="newest" {% if sort_by == 'newest' %}selected{% endif %}>Más recientes</option>
                 <option value="oldest" {% if sort_by == 'oldest' %}selected{% endif %}>Más antiguos</option>
                 <option value="highest" {% if sort_by == 'highest' %}selected{% endif %}>Mayor monto</option>
@@ -203,10 +203,10 @@
   </script>
 
   <!-- Lista de transacciones -->
-  <div class="bg-white rounded-lg border border-gray-200">
+  <div class="!bg-white dark:!bg-gray-800 rounded-lg border !border-gray-200 dark:!border-gray-600">
     <div class="divide-y divide-gray-100">
       {% for movimiento in transactions %}
-        <div class="flex items-center justify-between p-4 hover:bg-gray-50 transition-colors">
+        <div class="flex items-center justify-between p-4 hover:!bg-gray-50 hover:dark:!bg-gray-700 hover:rounded-lg transition-colors">
           <div class="flex items-center gap-3">
             <!-- Icono de categoría -->
             <div class="w-10 h-10 {% if movimiento.tipo == 'ingreso' %}bg-green-100 text-green-600{% else %}bg-red-100 text-red-600{% endif %} rounded-lg flex items-center justify-center">
@@ -258,7 +258,7 @@
     
     <!-- Transacciones Recientes -->
     {% if transacciones_recientes %}
-    <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+    <div class="!bg-white dark:!bg-gray-800 rounded-xl p-6 border !border-gray-200 dark:!border-gray-700">
       <div class="flex items-center justify-between mb-4">
         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Actividad Reciente</h3>
         <div class="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center">
@@ -299,10 +299,10 @@
 
     <!-- Categorías más frecuentes -->
     {% if categorias_frecuentes %}
-    <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+    <div class="!bg-white dark:!bg-gray-800 rounded-xl p-6 border !border-gray-200 dark:!border-gray-700">
       <div class="flex items-center justify-between mb-4">
         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Categorías del Mes</h3>
-        <div class="w-8 h-8 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center">
+        <div class="w-8 h-8 !bg-purple-100 dark:!bg-purple-900/30 rounded-lg flex items-center justify-center">
           <svg class="w-4 h-4 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
           </svg>
@@ -328,7 +328,7 @@
   </div>
 
   <!-- Resumen estadístico -->
-  <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 mt-6">
+  <div class="!bg-white dark:!bg-gray-800 rounded-xl p-6 border !border-gray-200 dark:!border-gray-700 mt-6">
     <div class="flex items-center justify-between mb-4">
       <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Resumen Financiero</h3>
       <div class="w-8 h-8 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center">

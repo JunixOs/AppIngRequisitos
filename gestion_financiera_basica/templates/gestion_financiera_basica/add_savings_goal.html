@@ -5,10 +5,10 @@
 {% block content %}
 <div class="max-w-4xl mx-auto">
   <!-- Header -->
-  <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-8">
+  <div class="!bg-white dark:!bg-gray-800 rounded-lg shadow-sm border !border-gray-200 dark:!border-gray-700 p-6 mb-8">
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/50 rounded-lg flex items-center justify-center">
+        <div class="w-12 h-12 !bg-blue-100 dark:!bg-blue-900/50 rounded-lg flex items-center justify-center">
           <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
           </svg>
@@ -28,7 +28,7 @@
   </div>
 
   <!-- Formulario -->
-  <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-8">
+  <div class="!bg-white dark:!bg-gray-800 rounded-lg shadow-sm border !border-gray-200 dark:!border-gray-700 p-8">
     <form method="post">
       {% csrf_token %}
       
@@ -38,7 +38,7 @@
           Nombre de la Meta
         </label>
         {% if form.nombre.errors %}
-          <div class="mb-2 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+          <div class="mb-2 p-3 !bg-red-50 dark:!bg-red-900/20 border !border-red-200 dark:!border-red-800 rounded-lg">
             <p class="text-red-600 dark:text-red-400 text-sm">{{ form.nombre.errors.0 }}</p>
           </div>
         {% endif %}
@@ -53,7 +53,7 @@
             Monto Objetivo
           </label>
           {% if form.monto_objetivo.errors %}
-            <div class="mb-2 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+            <div class="mb-2 p-3 !bg-red-50 dark:!bg-red-900/20 border !border-red-200 dark:!border-red-800 rounded-lg">
               <p class="text-red-600 dark:text-red-400 text-sm">{{ form.monto_objetivo.errors.0 }}</p>
             </div>
           {% endif %}
@@ -69,7 +69,7 @@
             Cuenta para Ahorrar
           </label>
           {% if form.id_cuenta.errors %}
-            <div class="mb-2 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+            <div class="mb-2 p-3 !bg-red-50 dark:!bg-red-900/20 border !border-red-200 dark:!border-red-800 rounded-lg">
               <p class="text-red-600 dark:text-red-400 text-sm">{{ form.id_cuenta.errors.0 }}</p>
             </div>
           {% endif %}
@@ -85,7 +85,7 @@
             Fecha de Inicio
           </label>
           {% if form.fecha_inicio.errors %}
-            <div class="mb-2 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+            <div class="mb-2 p-3 !bg-red-50 dark:!bg-red-900/20 border !border-red-200 dark:!border-red-800 rounded-lg">
               <p class="text-red-600 dark:text-red-400 text-sm">{{ form.fecha_inicio.errors.0 }}</p>
             </div>
           {% endif %}
@@ -97,7 +97,7 @@
             Fecha Límite
           </label>
           {% if form.fecha_limite.errors %}
-            <div class="mb-2 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+            <div class="mb-2 p-3 !bg-red-50 dark:!bg-red-900/20 border !border-red-200 dark:!border-red-800 rounded-lg">
               <p class="text-red-600 dark:text-red-400 text-sm">{{ form.fecha_limite.errors.0 }}</p>
             </div>
           {% endif %}
@@ -112,7 +112,7 @@
           Frecuencia de Aporte
         </label>
         {% if form.frecuencia_aporte.errors %}
-          <div class="mb-2 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+          <div class="mb-2 p-3 !bg-red-50 dark:!bg-red-900/20 border !border-red-200 dark:!border-red-800 rounded-lg">
             <p class="text-red-600 dark:text-red-400 text-sm">{{ form.frecuencia_aporte.errors.0 }}</p>
           </div>
         {% endif %}
@@ -126,7 +126,7 @@
           Descripción (Opcional)
         </label>
         {% if form.descripcion.errors %}
-          <div class="mb-2 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+          <div class="mb-2 p-3 !bg-red-50 dark:!bg-red-900/20 border !border-red-200 dark:!border-red-800 rounded-lg">
             <p class="text-red-600 dark:text-red-400 text-sm">{{ form.descripcion.errors.0 }}</p>
           </div>
         {% endif %}
@@ -136,7 +136,7 @@
 
       <!-- Errores generales -->
       {% if form.non_field_errors %}
-        <div class="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+        <div class="mb-6 p-4 !bg-red-50 dark:!bg-red-900/20 border !border-red-200 dark:!border-red-800 rounded-lg">
           {% for error in form.non_field_errors %}
             <p class="text-red-600 dark:text-red-400 text-sm">{{ error }}</p>
           {% endfor %}
@@ -146,7 +146,7 @@
       <!-- Botones -->
       <div class="flex gap-4">
         <a href="{% url 'gestion_financiera_basica:savings_goals' %}" 
-           class="flex-1 px-6 py-3 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium transition-colors duration-200 text-center">
+           class="flex-1 px-6 py-3 !bg-gray-100 dark:!bg-gray-700 hover:!bg-gray-200 dark:hover:!bg-gray-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium transition-colors duration-200 text-center">
           Cancelar
         </a>
         <button type="submit" 
